@@ -1,0 +1,52 @@
+/* ===============================
+   CSS Normalize (Next.js)
+=============================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===============================
+   Global variables
+=============================== */
+
+:root {
+  --container-width: 1280px;
+  --header-height: 72px;
+
+  --color-bg-header: #0b0b0c;
+  --color-text-primary: #ffffff;
+  --color-text-muted: #cfcfcf;
+  --color-accent: #0a57ff;
+
+  --transition-base: 0.25s ease;
+}
