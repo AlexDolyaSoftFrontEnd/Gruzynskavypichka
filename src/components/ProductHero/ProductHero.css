@@ -1,0 +1,201 @@
+/* ===============================
+   Block: product-hero
+================================ */
+.product-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  background: #0a0a0a;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+  padding-top: 50px;
+}
+
+/* Затемнение + дымка */
+.product-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      55% 40% at 50% 28%,
+      rgba(60, 110, 255, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.35),
+      rgba(0,0,0,0.9)
+    );
+  filter: blur(0.2px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Контейнер */
+.product-hero__container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  padding: 72px 24px 88px;
+  width: 100%;
+  display: grid;
+  gap: 56px;
+  justify-items: center;
+}
+
+/* ===============================
+   Card
+================================ */
+.product-hero__card {
+  display: grid;
+  gap: 28px;
+  justify-items: center;
+}
+
+/* Обложка */
+.product-hero__image {
+  width: auto;
+  max-height: 640px;
+  border-radius: 8px;
+  background: #111;
+  box-shadow:
+    0 50px 120px rgba(0,0,0,0.75),
+    inset 0 0 0 1px rgba(255,255,255,0.06);
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.product-hero__image:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 70px 140px rgba(0,0,0,0.85),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* Заголовок */
+.product-hero__header {
+  text-align: center;
+  max-width: 520px;
+}
+
+.product-hero__title {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3c6eff;
+  text-shadow: 0 6px 30px rgba(60,110,255,0.35);
+}
+
+/* Подзаголовок */
+.product-hero__subtitle {
+  margin-top: 14px;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+/* ===============================
+   Actions
+================================ */
+.product-hero__actions {
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+}
+
+/* Цена (оставлено, но не используется) */
+/*
+.product-hero__price {
+  font-size: 28px;
+  font-weight: 600;
+}
+*/
+
+/* Кнопки */
+.product-hero__buttons {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Общие стили кнопок */
+.product-hero__button {
+  min-width: 220px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+
+  text-decoration: none;          
+  border: none;
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Secondary */
+.product-hero__button--secondary {
+  background: #ffffff;
+  color: #0a0a0a;
+  box-shadow: 0 10px 30px rgba(255,255,255,0.15);
+}
+
+.product-hero__button--secondary:hover {
+  background: #f2f2f2;
+  transform: translateY(-2px);
+}
+
+/* Primary */
+.product-hero__button--primary {
+  background: linear-gradient(
+    135deg,
+    #3c6eff,
+    #1e4dd8
+  );
+  color: #ffffff;
+  box-shadow:
+    0 14px 40px rgba(60,110,255,0.45);
+}
+
+.product-hero__button--primary:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 18px 55px rgba(60,110,255,0.6);
+}
+
+/* Focus (accessibility) */
+.product-hero__button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #0a0a0a,
+    0 0 0 4px rgba(60,110,255,0.8);
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 768px) {
+  .product-hero__container {
+    padding-top: 56px;
+    gap: 44px;
+  }
+
+  .product-hero__image {
+    max-height: 480px;
+  }
+
+  .product-hero__title {
+    letter-spacing: 0.12em;
+  }
+}
