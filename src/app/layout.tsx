@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata = {
   title: {
-    default: "MOLFAR — Інститут розвідки",
+    default: "MOLFAR — інститут розвідки",
     template: "%s | MOLFAR Intelligence Institute",
   },
 

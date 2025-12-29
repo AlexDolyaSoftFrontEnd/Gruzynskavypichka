@@ -8,7 +8,10 @@ type OrderModalProps = {
   onClose: () => void;
 };
 
-export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
+export default function OrderModal({
+  isOpen,
+  onClose,
+}: OrderModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -44,28 +47,27 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         aria-modal="true"
         aria-labelledby="order-title"
       >
-        <button
-          type="button"
-          className="order-modal__close"
-          onClick={onClose}
-          aria-label="Закрити форму"
-        >
-          ×
-        </button>
-
         <header className="order-modal__header">
-          <h1 id="order-title" className="order-modal__title">
+          <h1
+            id="order-title"
+            className="order-modal__title"
+          >
             Замовлення
           </h1>
           <p className="order-modal__subtitle">
-            Введіть дані отримувача
+            Введіть дані отримувача нижче:
           </p>
         </header>
 
-        <form className="order-form" autoComplete="on">
+        <form
+          className="order-form"
+          autoComplete="on"
+        >
           <div className="order-form__grid">
             <div className="order-form__field">
-              <label htmlFor="name">Імʼя та прізвище*</label>
+              <label htmlFor="name">
+                Імʼя та прізвище*
+              </label>
               <input
                 id="name"
                 name="name"
@@ -76,7 +78,9 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             </div>
 
             <div className="order-form__field">
-              <label htmlFor="phone">Телефон*</label>
+              <label htmlFor="phone">
+                Телефон*
+              </label>
               <input
                 id="phone"
                 name="phone"
@@ -88,7 +92,9 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             </div>
 
             <div className="order-form__field">
-              <label htmlFor="email">Електронна пошта*</label>
+              <label htmlFor="email">
+                Електронна пошта*
+              </label>
               <input
                 id="email"
                 name="email"
@@ -100,7 +106,9 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             </div>
 
             <div className="order-form__field">
-              <label htmlFor="city">Місто*</label>
+              <label htmlFor="city">
+                Місто*
+              </label>
               <input
                 id="city"
                 name="city"
@@ -111,29 +119,47 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             </div>
 
             <div className="order-form__field">
-              <label htmlFor="post">Нова Пошта*</label>
+              <label htmlFor="post">
+                Нова Пошта*
+              </label>
               <input
                 id="post"
                 name="post"
                 required
-                placeholder="Відділення №18 / Поштомат №324"
+                placeholder="Відділення / Поштомат"
               />
             </div>
 
             <div className="order-form__field">
-              <label htmlFor="address">Адреса доставки*</label>
+              <label htmlFor="address">
+                Адреса доставки*
+              </label>
               <input
                 id="address"
                 name="address"
                 required
-                placeholder="м. Київ, вул. Хрещатик, 12"
+                placeholder="вул. Богдана Хмелінського"
                 autoComplete="street-address"
               />
             </div>
           </div>
 
-          <button type="submit" className="order-form__submit">
+          {/* PRIMARY ACTION */}
+          <button
+            type="submit"
+            className="order-form__submit"
+          >
             Замовити
+          </button>
+
+          {/* SECONDARY ACTION */}
+          <button
+            type="button"
+            className="order-modal__close"
+            onClick={onClose}
+            aria-label="Закрити форму"
+          >
+            Закрити
           </button>
         </form>
       </aside>
