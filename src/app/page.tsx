@@ -10,7 +10,6 @@ export default function Molfar() {
       subtitle="Анонімності не існує"
       coverSrc="/images/book-cover.webp"
       readHref="/read"
-      orderHref="/order"
     />
     </>
   );

@@ -1,13 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import "./ProductHero.css";
+
+import { useOrderModal } from "../../hooks/useOrderModal";
+import OrderModal from "../OrderModal/OrderModal";
 
 type ProductHeroProps = {
   title: string;
   subtitle?: string;
   coverSrc: string;
   readHref: string;
-  orderHref: string;
 };
 
 export default function ProductHero({
@@ -15,8 +19,9 @@ export default function ProductHero({
   subtitle,
   coverSrc,
   readHref,
-  orderHref,
 }: ProductHeroProps) {
+  const orderModal = useOrderModal();
+
   return (
     <section className="product-hero" aria-labelledby="product-title">
       <div className="product-hero__overlay" />
@@ -52,15 +57,21 @@ export default function ProductHero({
               Читати уривок
             </Link>
 
-            <Link
-              href={orderHref}
+            <button
+              type="button"
               className="product-hero__button product-hero__button--primary"
+              onClick={orderModal.open}
             >
               Замовити
-            </Link>
+            </button>
           </div>
         </footer>
       </div>
+
+      <OrderModal
+        isOpen={orderModal.isOpen}
+        onClose={orderModal.close}
+      />
     </section>
   );
 }
