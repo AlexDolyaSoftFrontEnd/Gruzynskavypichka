@@ -1,11 +1,9 @@
-import styles from "./page.module.css";
+import Header from './../components/Header/Header';
 
-export default function Home() {
+export default function Molfar() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-   
-      </main>
-    </div>
+    <>
+      <Header />
+    </>
   );
 }

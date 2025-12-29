@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Header from "../components/Header/Header";
 import "./globals.css";
 
 export const metadata = {
@@ -92,7 +91,6 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body className={inter.className}>
-        <Header />
         {children}
       </body>
     </html>
