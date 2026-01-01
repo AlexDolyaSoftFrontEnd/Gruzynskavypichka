@@ -9,7 +9,7 @@ export default function Molfar() {
       title="Розвідка"
       subtitle="Анонімності не існує"
       coverSrc="/images/book-cover.webp"
-      readHref="/read"
+      readHref="https://cdn.prod.website-files.com/693fe2a28f9013337e54175d/694468921231f2ddef89779f_rozvidka_23-31.pdf"
     />
     </>
   );

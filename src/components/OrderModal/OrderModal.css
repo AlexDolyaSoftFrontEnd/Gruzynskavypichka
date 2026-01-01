@@ -100,7 +100,7 @@
 }
 
 /* ===============================
-   Form
+   Form layout
 =============================== */
 
 .order-form__grid {
@@ -109,7 +109,12 @@
   gap: 36px 56px;
 }
 
+/* ===============================
+   Field block
+=============================== */
+
 .order-form__field {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -118,14 +123,28 @@
 .order-form__field label {
   font-size: 14px;
   color: #222;
+  transition: color 0.2s ease;
 }
+
+.order-form__field:hover input {
+  border-color: #c7d2fe;
+}
+
+.order-form__field:focus-within label {
+  color: #0a57ff;
+}
+
+/* ===============================
+   Input
+=============================== */
 
 .order-form__field input {
   height: 54px;
   padding: 0 18px;
 
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #e3e3e3;
+  background-color: #ffffff;
 
   font-size: 16px;
   color: #111;
@@ -137,14 +156,53 @@
 }
 
 .order-form__field input::placeholder {
-  color: #9aa0a6;
+  color: #a1a1aa;
 }
 
 .order-form__field input:focus {
   outline: none;
-  border-color: #0a57ff;
-  background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(10, 87, 255, 0.15);
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+/* ===============================
+   Error state (Formik)
+=============================== */
+
+.order-form__field input[aria-invalid="true"] {
+  border-color: #dc2626;
+  background-color: #fffafa;
+
+  box-shadow:
+    0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.order-form__error {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #dc2626;
+}
+
+/* ===============================
+   Disabled
+=============================== */
+
+.order-form__field input:disabled {
+  background-color: #f4f4f5;
+  color: #71717a;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Autofill (Chrome fix)
+=============================== */
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #111 !important;
 }
 
 /* ===============================
@@ -185,8 +243,14 @@
   box-shadow: none;
 }
 
+.order-form__submit:disabled {
+  background: #93b4ff;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 /* ===============================
-   Close button (secondary, same size)
+   Close button (secondary)
 =============================== */
 
 .order-modal__close {
