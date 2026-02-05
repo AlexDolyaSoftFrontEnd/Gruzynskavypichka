@@ -1,7 +1,11 @@
-/* ===============================
-   Root overlay
-=============================== */
+:root {
+--accent-main: #F3E7CD;    
+--accent-soft: #E6D7B5;    
+--accent-dark: #C9B88F;    
+--bg-panel-top: #14120d;
+--bg-panel-bottom: #0d0b08;
 
+}
 .order-modal {
   position: fixed;
   inset: 0;
@@ -9,9 +13,7 @@
 
   pointer-events: none;
   opacity: 0;
-
-  transition: opacity 0.25s ease;
-  will-change: opacity;
+  transition: opacity 0.3s ease;
 }
 
 .order-modal--open {
@@ -19,41 +21,56 @@
   opacity: 1;
 }
 
-/* ===============================
+/* ==================================================
    Backdrop
-=============================== */
-
+   Полупрозрачный тёмный фон с акцентом
+================================================== */
 .order-modal__backdrop {
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.55),
-    rgba(0, 0, 0, 0.6)
-  );
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(243, 231, 205, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(243, 231, 205, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(
+      rgba(8, 7, 5, 0.88),
+      rgba(8, 7, 5, 0.96)
+    );
 
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
 }
 
 .order-modal--open .order-modal__backdrop {
   opacity: 1;
 }
 
-/* ===============================
+/* ==================================================
    Panel
-=============================== */
-
+   Основная панель с формой
+================================================== */
 .order-modal__panel {
   position: absolute;
   top: 0;
   right: 0;
-
   height: 100%;
   width: min(920px, 100%);
 
-  background: #ffffff;
-  color: #111;
+  background: linear-gradient(
+    180deg,
+    #16130d 0%,
+    #0f0d09 100%
+  );
+
+  color: #f8f5ef;
 
   padding: 72px 80px;
   padding-bottom: calc(72px + env(safe-area-inset-bottom));
@@ -63,179 +80,170 @@
 
   transform: translateX(100%);
   transition:
-    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.35s ease;
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.45s ease;
 
   box-shadow:
-    -12px 0 40px rgba(0, 0, 0, 0.18),
-    -2px 0 8px rgba(0, 0, 0, 0.06);
+    -20px 0 60px rgba(243, 231, 205, 0.12),
+    -6px 0 20px rgba(0, 0, 0, 0.55);
 
   will-change: transform;
-  scroll-behavior: smooth;
 }
 
 .order-modal--open .order-modal__panel {
   transform: translateX(0);
 }
 
-/* ===============================
+/* ==================================================
    Typography
-=============================== */
-
+   Заголовки и подзаголовки
+================================================== */
 .order-modal__title {
-  margin: 0 0 48px;
-
-  font-size: clamp(36px, 4vw, 56px);
-  font-weight: 400;
+  margin: 0 0 32px;
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.02em;
+
+  color: #F3E7CD;
 }
 
-.order-modal__subtitle {
-  margin: 0 0 44px;
 
-  font-size: clamp(18px, 2.2vw, 24px);
-  line-height: 1.4;
-  color: #222;
-}
-
-/* ===============================
+/* ==================================================
    Form layout
-=============================== */
-
+   Сетка полей
+================================================== */
 .order-form__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 36px 56px;
+  gap: 34px 48px;
 }
 
-/* ===============================
+/* ==================================================
    Field block
-=============================== */
-
-.order-form__field {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+   Отдельное поле с лейблом и инпутом
+================================================== */
 .order-form__field label {
-  font-size: 14px;
-  color: #222;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #bfb6a0;
   transition: color 0.2s ease;
 }
 
-.order-form__field:hover input {
-  border-color: #c7d2fe;
-}
-
+.order-form__field:hover label,
 .order-form__field:focus-within label {
-  color: #0a57ff;
+  color: #F3E7CD;
 }
 
-/* ===============================
+
+/* ==================================================
    Input
-=============================== */
-
-.order-form__field input {
-  height: 54px;
-  padding: 0 18px;
-
-  border-radius: 10px;
-  border: 1px solid #e3e3e3;
-  background-color: #ffffff;
-
-  font-size: 16px;
-  color: #111;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
+   Поля ввода с темным фоном
+================================================== */
+.order-form__field input,
+.order-form__field textarea {
+  border: 1px solid #2a2418;
+  background: linear-gradient(180deg, #19160f, #121009);
+  color: #ffffff;
 }
 
-.order-form__field input::placeholder {
-  color: #a1a1aa;
-}
-
-.order-form__field input:focus {
-  outline: none;
-  border-color: #2563eb;
-
+.order-form__field input:focus,
+.order-form__field textarea:focus {
+  border-color: #F3E7CD;
   box-shadow:
-    0 0 0 3px rgba(37, 99, 235, 0.18);
+    0 0 0 3px rgba(243, 231, 205, 0.35),
+    0 12px 30px rgba(0, 0, 0, 0.45);
 }
 
-/* ===============================
-   Error state (Formik)
-=============================== */
 
-.order-form__field input[aria-invalid="true"] {
-  border-color: #dc2626;
-  background-color: #fffafa;
-
-  box-shadow:
-    0 0 0 3px rgba(220, 38, 38, 0.15);
-}
-
-.order-form__error {
-  margin-top: 4px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: #dc2626;
-}
-
-/* ===============================
-   Disabled
-=============================== */
-
-.order-form__field input:disabled {
-  background-color: #f4f4f5;
-  color: #71717a;
-  cursor: not-allowed;
-}
-
-/* ===============================
-   Autofill (Chrome fix)
-=============================== */
-
-input:-webkit-autofill {
-  box-shadow: 0 0 0 1000px #ffffff inset !important;
-  -webkit-text-fill-color: #111 !important;
-}
-
-/* ===============================
-   Submit (primary)
-=============================== */
-
+/* ==================================================
+   Error state
+   Состояние ошибки (Formik)
+================================================== */
 .order-form__submit {
   margin-top: 72px;
-
   width: 100%;
-  height: 76px;
-
+  height: 78px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
 
-  background: #0a57ff;
-  color: #fff;
+  background: linear-gradient(
+    135deg,
+    #F3E7CD,
+    #E6D7B5
+  );
 
+  color: #1a160e;
   font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 
   transition:
-    background 0.2s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 .order-form__submit:hover {
-  background: #1a6bff;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(10, 87, 255, 0.35);
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 18px 45px rgba(243, 231, 205, 0.45);
+}
+
+.order-form__submit:disabled {
+  background: #5c5442;
+  color: #cfc6b1;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+
+/* ==================================================
+   Disabled
+   Заблокированные поля
+================================================== */
+.order-form__field input:disabled {
+  background: #0c0f1e;
+  color: #6b7093;
+  cursor: not-allowed;
+}
+
+/* ==================================================
+   Autofill (Chrome)
+   Без !important
+================================================== */
+input:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  box-shadow: 0 0 0 1000px #10132a inset;
+}
+
+/* ==================================================
+   Submit button (Primary)
+   Главная кнопка
+================================================== */
+.order-form__submit {
+  margin-top: 72px;
+  width: 100%;
+  height: 78px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4f7cff, #2b4cff);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.order-form__submit:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 50px rgba(79, 124, 255, 0.45);
 }
 
 .order-form__submit:active {
@@ -244,57 +252,28 @@ input:-webkit-autofill {
 }
 
 .order-form__submit:disabled {
-  background: #93b4ff;
+  background: #3b4a8a;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-/* ===============================
-   Close button (secondary)
-=============================== */
-
+/* ==================================================
+   Close button (Secondary)
+================================================== */
 .order-modal__close {
-  margin: 24px auto 0;
-
-  width: 100%;
-  height: 76px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 999px;
-  border: 1px solid #0a57ff;
-  background: #ffffff;
-  cursor: pointer;
-
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: #0a57ff;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  border: 1px solid rgba(243, 231, 205, 0.4);
+  color: #F3E7CD;
 }
 
 .order-modal__close:hover {
-  background: #f5f8ff;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(10, 87, 255, 0.15);
+  background: rgba(243, 231, 205, 0.12);
+  color: #ffffff;
 }
 
-.order-modal__close:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
 
-/* ===============================
+/* ==================================================
    Responsive
-=============================== */
-
+================================================== */
 @media (max-width: 900px) {
   .order-modal__panel {
     padding: 40px 24px;
@@ -302,31 +281,29 @@ input:-webkit-autofill {
 
   .order-form__grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 26px;
   }
 
   .order-form__submit,
   .order-modal__close {
     height: 64px;
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
-/* ===============================
+/* ==================================================
    Accessibility
-=============================== */
-
+================================================== */
 .order-modal__close:focus-visible,
 .order-form__field input:focus-visible,
 .order-form__submit:focus-visible {
-  outline: 2px solid #0a57ff;
-  outline-offset: 3px;
+  outline: 2px solid #4f7cff;
+  outline-offset: 4px;
 }
 
-/* ===============================
+/* ==================================================
    Reduced motion
-=============================== */
-
+================================================== */
 @media (prefers-reduced-motion: reduce) {
   .order-modal,
   .order-modal__backdrop,
@@ -334,3 +311,75 @@ input:-webkit-autofill {
     transition: none;
   }
 }
+
+/* ==================================================
+   Textarea
+   Многострочное поле ввода
+================================================== */
+.order-form__field textarea {
+  min-height: 140px;
+  padding: 16px 18px;
+  resize: vertical;
+
+  border-radius: 14px;
+  border: 1px solid #242846;
+  background: linear-gradient(180deg, #151936, #10132a);
+
+  font-size: 16px;
+  line-height: 1.55;
+  color: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.order-form__field textarea::placeholder {
+  color: #6c739f;
+}
+
+/* Focus */
+.order-form__field textarea:focus {
+  outline: none;
+  border-color: #4f7cff;
+  box-shadow:
+    0 0 0 3px rgba(79, 124, 255, 0.35),
+    0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================================================
+   Error state (Formik / aria-invalid)
+================================================== */
+.order-form__field textarea[aria-invalid="true"] {
+  border-color: #ff4d4f;
+  background: #1a0f14;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.3);
+}
+
+/* ==================================================
+   Disabled
+================================================== */
+.order-form__field textarea:disabled {
+  background: #0c0f1e;
+  color: #6b7093;
+  cursor: not-allowed;
+}
+
+/* ==================================================
+   Autofill / browser fixes
+================================================== */
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  box-shadow: 0 0 0 1000px #10132a inset;
+}
+
+/* ==================================================
+   Accessibility
+================================================== */
+.order-form__field textarea:focus-visible {
+  outline: 2px solid #4f7cff;
+  outline-offset: 4px;
+}
+
+/* https://chatgpt.com/c/6980fbe6-dab8-832f-8ea5-789efee455ac */

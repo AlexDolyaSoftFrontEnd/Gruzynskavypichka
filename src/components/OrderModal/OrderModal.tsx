@@ -1,98 +1,70 @@
 "use client";
 
 import { useEffect } from "react";
-import {
-  Formik,
-  Form,
-  Field,
-  ErrorMessage,
-  FormikHelpers,
-} from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./OrderModal.css";
 
-/* ======================================================
-   Types
-====================================================== */
+/* =========================
+   Interfaces
+========================= */
 
-export type OrderFormValues = {
+export interface OrderFormValues {
   name: string;
   phone: string;
   email: string;
   city: string;
-  post: string;
   address: string;
-};
+  comment: string;
+}
 
-type OrderModalProps = {
+interface OrderModalProps {
   isOpen: boolean;
   onClose: () => void;
-};
+}
 
-type FieldName = keyof OrderFormValues;
-
-type FieldBlockProps = {
-  name: FieldName;
+interface FieldBlockProps {
+  name: keyof OrderFormValues;
   label: string;
   placeholder?: string;
-  type?: React.HTMLInputTypeAttribute;
+  type?: string;
   autoComplete?: string;
-};
+  as?: "input" | "textarea";
+}
 
-/* ======================================================
+/* =========================
    Initial values
-====================================================== */
+========================= */
 
 const initialValues: OrderFormValues = {
   name: "",
   phone: "",
   email: "",
   city: "",
-  post: "",
   address: "",
+  comment: "",
 };
 
-/* ======================================================
-   Validation schema
-====================================================== */
+/* =========================
+   Validation
+========================= */
 
-const orderSchema: Yup.ObjectSchema<OrderFormValues> =
-  Yup.object({
-    name: Yup.string()
-      .min(2, "Мінімум 2 символи")
-      .required("Обовʼязкове поле"),
+const schema = Yup.object({
+  name: Yup.string().min(2).required(),
+  phone: Yup.string()
+    .matches(/^\+380\d{9}$/)
+    .required(),
+  email: Yup.string().email().required(),
+  city: Yup.string().required(),
+  address: Yup.string().required(),
+  comment: Yup.string(),
+});
 
-    phone: Yup.string()
-      .matches(
-        /^\+380\d{9}$/,
-        "Формат: +380XXXXXXXXX"
-      )
-      .required("Обовʼязкове поле"),
-
-    email: Yup.string()
-      .email("Некоректна пошта")
-      .required("Обовʼязкове поле"),
-
-    city: Yup.string()
-      .min(2, "Вкажіть місто")
-      .required("Обовʼязкове поле"),
-
-    post: Yup.string()
-      .required("Вкажіть відділення або поштомат"),
-
-    address: Yup.string()
-      .min(5, "Занадто коротка адреса")
-      .required("Обовʼязкове поле"),
-  });
-
-/* ======================================================
+/* =========================
    Component
-====================================================== */
+========================= */
 
-export default function OrderModal({
-  isOpen,
-  onClose,
-}: OrderModalProps) {
+export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -113,104 +85,38 @@ export default function OrderModal({
 
   return (
     <div className="order-modal order-modal--open">
-      <div
-        className="order-modal__backdrop"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      <div className="order-modal__backdrop" onClick={onClose} />
 
-      <aside
-        className="order-modal__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="order-title"
-      >
-        <header className="order-modal__header">
-          <h1
-            id="order-title"
-            className="order-modal__title"
-          >
-            Замовлення
-          </h1>
-          <p className="order-modal__subtitle">
-            Введіть дані отримувача нижче
-          </p>
-        </header>
+      <aside className="order-modal__panel">
+        <h2 className="order-modal__title">Замовлення</h2>
 
-        <Formik<OrderFormValues>
+        <Formik
           initialValues={initialValues}
-          validationSchema={orderSchema}
-          onSubmit={(
-            values: OrderFormValues,
-            helpers: FormikHelpers<OrderFormValues>
-          ) => {
-            console.log("ORDER DATA:", values);
-
-            // TODO: axios / fetch
+          validationSchema={schema}
+          onSubmit={(values, helpers) => {
+            console.log("ORDER:", values);
             helpers.resetForm();
             onClose();
           }}
         >
-          {({ isSubmitting, isValid }) => (
-            <Form
-              className="order-form"
-              autoComplete="on"
-            >
-              <div className="order-form__grid">
-                <FieldBlock
-                  name="name"
-                  label="Імʼя та прізвище"
-                  placeholder="Ігор Ручкін"
-                  autoComplete="name"
-                />
+          {({ isValid }) => (
+            <Form className="order-form">
+              <FieldBlock name="name" label="Імʼя" />
+              <FieldBlock name="phone" label="Телефон" placeholder="+380..." />
+              <FieldBlock name="email" label="Email" type="email" />
+              <FieldBlock name="city" label="Місто" />
+              <FieldBlock name="address" label="Адреса" />
+              <FieldBlock
+                name="comment"
+                label="Коментар"
+                as="textarea"
+              />
 
-                <FieldBlock
-                  name="phone"
-                  label="Телефон"
-                  placeholder="+380971234567"
-                  autoComplete="tel"
-                />
-
-                <FieldBlock
-                  name="email"
-                  type="email"
-                  label="Електронна пошта"
-                  placeholder="name@example.com"
-                  autoComplete="email"
-                />
-
-                <FieldBlock
-                  name="city"
-                  label="Місто"
-                  placeholder="Київ"
-                />
-
-                <FieldBlock
-                  name="post"
-                  label="Адреса пошти"
-                  placeholder="Відділення / Поштомат"
-                />
-
-                <FieldBlock
-                  name="address"
-                  label="Адреса доставки"
-                  placeholder="вул. Богдана Хмелінського"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="order-form__submit"
-                disabled={!isValid || isSubmitting}
-              >
+              <button type="submit" disabled={!isValid}>
                 Замовити
               </button>
 
-              <button
-                type="button"
-                className="order-modal__close"
-                onClick={onClose}
-              >
+              <button type="button" onClick={onClose}>
                 Закрити
               </button>
             </Form>
@@ -221,9 +127,9 @@ export default function OrderModal({
   );
 }
 
-/* ======================================================
+/* =========================
    Field block
-====================================================== */
+========================= */
 
 function FieldBlock({
   name,
@@ -231,6 +137,7 @@ function FieldBlock({
   placeholder,
   type = "text",
   autoComplete,
+  as = "input",
 }: FieldBlockProps) {
   return (
     <div className="order-form__field">
@@ -239,16 +146,13 @@ function FieldBlock({
       <Field
         id={name}
         name={name}
+        as={as}
         type={type}
         placeholder={placeholder}
         autoComplete={autoComplete}
       />
 
-      <ErrorMessage
-        name={name}
-        component="span"
-        className="order-form__error"
-      />
+      <ErrorMessage name={name} component="span" />
     </div>
   );
 }

@@ -1,64 +1,80 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { useOrderModal } from "../../hooks/useOrderModal";
+import Link from "next/link";
+import Image from "next/image";
 import OrderModal from "../OrderModal/OrderModal";
 import "./Header.css";
 
-export default function Header() {
-  const orderModal = useOrderModal();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+/* =========================
+   Interfaces
+========================= */
 
-  const closeMenu = () => setIsMenuOpen(false);
+interface NavItemProps {
+  href: string;
+  label: string;
+  icon: string;
+}
+
+/* =========================
+   Component
+========================= */
+
+export default function Header() {
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
 
   return (
     <>
-      <header className={`header ${isMenuOpen ? "header--menu-open" : ""}`}>
+      <header className="header">
         <div className="header__container">
-          <Link href="/" className="header__logo" onClick={closeMenu}>
-            <span className="header__logo-text">
-              MOLFAR <br />
-              <small>— інститут розвідки</small>
-            </span>
+          {/* Logo */}
+          <Link href="/" className="header__logo">
+            <Image
+              src="/logo/logo.png"
+              alt="Грузінська пекарня"
+              className="header__logo-image"
+            />
           </Link>
 
+          {/* Navigation */}
           <nav className="header__nav">
-            <Link href="#trust" className="header__link" onClick={closeMenu}>Довіра</Link>
-            <Link href="#partners" className="header__link" onClick={closeMenu}>Партнери</Link>
-            <Link href="#author" className="header__link" onClick={closeMenu}>Автор</Link>
-            <Link href="#read" className="header__link" onClick={closeMenu}>Читати</Link>
+            <NavItem href="/khachapuri" label="ХАЧАПУРІ" icon="/icons/khachapuri.png" />
+            <NavItem href="/khinkali" label="ХІНКАЛІ" icon="/icons/khinkali.png" />
+            <NavItem href="/shashlik" label="ШАШЛИК" icon="/icons/shashlik.png" />
+            <NavItem href="/salat" label="САЛАТИ" icon="/icons/salat.png" />
+            <NavItem href="/sup" label="СУПИ" icon="/icons/sup.png" />
+            <NavItem href="/ryba" label="РИБА" icon="/icons/ryba.png" />
           </nav>
 
-          <div className="header__actions">
-            <button
-              className="header__cta"
-              onClick={() => {
-                closeMenu();
-                orderModal.open();
-              }}
-            >
-              ЗАМОВИТИ
-            </button>
-
-            <button
-              className="header__burger"
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
-              onClick={() => setIsMenuOpen(v => !v)}
-            >
-              <span />
-              <span />
-              <span />
-            </button>
-          </div>
+          {/* CTA */}
+          <button
+            type="button"
+            className="header__cta"
+            onClick={() => setIsOrderOpen(true)}
+          >
+            Для замовлення →
+          </button>
         </div>
       </header>
 
+      {/* Modal */}
       <OrderModal
-        isOpen={orderModal.isOpen}
-        onClose={orderModal.close}
+        isOpen={isOrderOpen}
+        onClose={() => setIsOrderOpen(false)}
       />
     </>
+  );
+}
+
+/* =========================
+   Nav item
+========================= */
+
+function NavItem({ href, label, icon }: NavItemProps) {
+  return (
+    <Link href={href} className="header__link header__link--icon">
+      <Image src={icon} alt={label} width={20} height={20} />
+      <span>{label}</span>
+    </Link>
   );
 }

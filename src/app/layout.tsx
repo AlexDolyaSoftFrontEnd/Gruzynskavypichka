@@ -3,62 +3,74 @@ import "./globals.css";
 
 export const metadata = {
   title: {
-    default: "MOLFAR — інститут розвідки",
-    template: "%s | MOLFAR Intelligence Institute",
+    default: "Грузинська пекарня — хачапурі, хінкалі, шашлик",
+    template: "%s | Грузинська пекарня",
   },
 
   description:
-    "MOLFAR Intelligence Institute — аналітика, дослідження, довіра, партнерства та авторські матеріали.",
+    "Грузинська пекарня — справжня грузинська кухня: хачапурі, хінкалі, шашлик, супи та салати. Домашні рецепти, традиційний смак і тепла атмосфера.",
 
-  applicationName: "MOLFAR Intelligence Institute",
+  applicationName: "Грузинська пекарня",
   generator: "Next.js",
 
   keywords: [
-    "MOLFAR",
-    "інтелектуальна аналітика",
-    "розвідка",
-    "дослідження",
-    "аналітика",
-    "інститут",
-    "стратегія",
+    "грузинська пекарня",
+    "грузинська кухня",
+    "хачапурі",
+    "хінкалі",
+    "шашлик",
+    "грузинський ресторан",
+    "грузинське кафе",
+    "меню грузинської кухні",
+    "традиційна грузинська їжа",
+    "кавʼярня грузинської кухні",
   ],
 
-  authors: [{ name: "MOLFAR Intelligence Institute" }],
-  creator: "MOLFAR Intelligence Institute",
-  publisher: "MOLFAR Intelligence Institute",
+  authors: [{ name: "Грузинська пекарня" }],
+  creator: "Грузинська пекарня",
+  publisher: "Грузинська пекарня",
 
-  metadataBase: new URL("https://molfar.ai"),
+  metadataBase: new URL("https://gruzynskavypichka.com"),
 
   alternates: {
     canonical: "/",
   },
 
+  /* =========================
+     Open Graph
+  ========================= */
   openGraph: {
     type: "website",
     locale: "uk_UA",
-    url: "https://molfar.ai",
-    title: "MOLFAR Intelligence Institute",
+    url: "https://gruzynskavypichka.com",
+    title: "Грузинська пекарня — справжня грузинська кухня",
     description:
-      "Аналітика, дослідження та інтелектуальні рішення.",
-    siteName: "MOLFAR Intelligence Institute",
+      "Хачапурі, хінкалі, шашлик та інші страви традиційної грузинської кухні. Автентичні рецепти та справжній смак.",
+    siteName: "Грузинська пекарня",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "MOLFAR Intelligence Institute",
+        alt: "Грузинська пекарня — традиційна грузинська кухня",
       },
     ],
   },
 
+  /* =========================
+     Twitter
+  ========================= */
   twitter: {
     card: "summary_large_image",
-    title: "MOLFAR Intelligence Institute",
+    title: "Грузинська пекарня — традиційна кухня",
     description:
-      "Аналітика, дослідження та інтелектуальні рішення.",
+      "Справжня грузинська кухня: хачапурі, хінкалі, шашлик та класичні страви.",
     images: ["/og-image.jpg"],
   },
 
+  /* =========================
+     Robots
+  ========================= */
   robots: {
     index: true,
     follow: true,
@@ -71,6 +83,9 @@ export const metadata = {
     },
   },
 
+  /* =========================
+     Icons
+  ========================= */
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
