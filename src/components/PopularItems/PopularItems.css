@@ -1,0 +1,646 @@
+/* ========================================
+   БЛОК: ПОПУЛЯРНЫЕ ТОВАРЫ
+   ======================================== */
+
+   .popular-items {
+    padding: 2.5rem 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    text-align: center;
+  }
+  
+  /* ========================================
+     ТИПОГРАФИКА
+     ======================================== */
+  
+  .popular-items__title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    color: #1a1a1a;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .popular-items__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 3px;
+    background: linear-gradient(90deg, #c89b3c 0%, #a67c2e 100%);
+    border-radius: 2px;
+  }
+  
+  .popular-items__empty {
+    text-align: center;
+    color: #666666;
+    font-size: 1rem;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    margin: 0 auto;
+    max-width: 500px;
+    line-height: 1.6;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .popular-items__error {
+    color: #dc3545;
+    text-align: center;
+    padding: 1.5rem;
+    border: 2px solid #f8d7da;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%);
+    border-radius: 12px;
+    margin: 1.5rem auto 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.1);
+    max-width: 600px;
+    display: inline-block;
+  }
+  
+  /* ========================================
+     СПИСОК ПОПУЛЯРНЫХ ТОВАРОВ
+     ======================================== */
+  
+  .popular-items__list {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: #e0e0e0 transparent;
+    -ms-overflow-style: none;
+    justify-content: center;
+    scroll-behavior: smooth;
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+  
+  .popular-items__list::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .popular-items__list::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .popular-items__list::-webkit-scrollbar-thumb:hover {
+    background-color: #b0b0b0;
+  }
+  
+  .popular-items__list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* ========================================
+     КАРТОЧКА ПОПУЛЯРНОГО ТОВАРА
+     ======================================== */
+  
+  .popular-items__item {
+    min-width: 220px;
+    max-width: 280px;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 0 0 auto;
+    border: 2px solid transparent;
+    position: relative;
+    margin: 0 auto;
+  }
+  
+  .popular-items__item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: #c89b3c;
+  }
+  
+  .popular-items__item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(200, 155, 60, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .popular-items__item:hover::before {
+    opacity: 1;
+  }
+  
+  /* ========================================
+     ИЗОБРАЖЕНИЕ
+     ======================================== */
+  
+  .popular-items__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+  
+  .popular-items__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .popular-items__item:hover .popular-items__image {
+    transform: scale(1.1);
+  }
+  
+  /* ========================================
+     БЕЙДЖ ПОПУЛЯРНОСТИ
+     ======================================== */
+  
+  .popular-items__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #c89b3c 0%, #a67c2e 100%);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 12px rgba(200, 155, 60, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  .popular-items__badge svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  }
+  
+  /* ========================================
+     КОНТЕНТ КАРТОЧКИ
+     ======================================== */
+  
+  .popular-items__content {
+    padding: 1.25rem;
+  }
+  
+  .popular-items__name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-transform: none;
+  }
+  
+  .popular-items__description {
+    font-size: 0.85rem;
+    color: #666666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: 400;
+  }
+  
+  /* ========================================
+     ФУТЕР КАРТОЧКИ
+     ======================================== */
+  
+  .popular-items__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .popular-items__price {
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: #c89b3c;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  
+  .popular-items__price::before {
+    content: '₴';
+    font-size: 0.8em;
+    margin-right: 0.2em;
+    opacity: 0.7;
+  }
+  
+  .popular-items__button {
+    background: linear-gradient(135deg, #c89b3c 0%, #a67c2e 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(200, 155, 60, 0.3);
+    white-space: nowrap;
+  }
+  
+  .popular-items__button svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  
+  .popular-items__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(200, 155, 60, 0.4);
+    background: linear-gradient(135deg, #a67c2e 0%, #c89b3c 100%);
+  }
+  
+  .popular-items__button:active {
+    transform: translateY(0);
+  }
+  
+  .popular-items__button:focus-visible {
+    outline: 3px solid rgba(200, 155, 60, 0.5);
+    outline-offset: 2px;
+  }
+  
+  /* ========================================
+     СКЕЛЕТОН ЗАГРУЗКИ
+     ======================================== */
+  
+  .popular-items--loading .popular-items__item-skeleton {
+    min-width: 220px;
+    max-width: 280px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+    flex: 0 0 auto;
+    border: 2px solid transparent;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    margin: 0 auto;
+  }
+  
+  @keyframes skeleton-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+  
+  .popular-items__image-skeleton {
+    width: 100%;
+    height: 160px;
+    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 2s ease-in-out infinite;
+  }
+  
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  .popular-items__content-skeleton {
+    padding: 1.25rem;
+  }
+  
+  .popular-items__name-skeleton {
+    height: 24px;
+    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    width: 85%;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+    margin: 0 auto 12px;
+  }
+  
+  .popular-items__price-skeleton {
+    height: 28px;
+    background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    border-radius: 6px;
+    width: 50%;
+    animation: skeleton-pulse 1.8s ease-in-out infinite;
+    margin: 0 auto;
+  }
+  
+  .popular-items__image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #999999;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 500;
+  }
+  
+  /* ========================================
+     АДАПТИВНЫЕ УЛУЧШЕНИЯ
+     ======================================== */
+  
+  @media (max-width: 1024px) {
+    .popular-items {
+      padding: 2.25rem 1.25rem;
+    }
+    
+    .popular-items__title {
+      font-size: 1.875rem;
+      margin-bottom: 2.25rem;
+    }
+    
+    .popular-items__item {
+      min-width: 200px;
+      max-width: 260px;
+    }
+    
+    .popular-items__image-wrapper {
+      height: 150px;
+    }
+    
+    .popular-items__name {
+      font-size: 1.0625rem;
+    }
+    
+    .popular-items__price {
+      font-size: 1.25rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .popular-items {
+      padding: 2rem 1rem;
+    }
+    
+    .popular-items__title {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
+    
+    .popular-items__list {
+      gap: 1.25rem;
+      padding: 0.75rem 0.25rem;
+    }
+    
+    .popular-items__item {
+      min-width: 185px;
+      max-width: 240px;
+      border-radius: 14px;
+    }
+    
+    .popular-items__image-wrapper {
+      height: 140px;
+    }
+    
+    .popular-items__content {
+      padding: 1rem;
+    }
+    
+    .popular-items__name {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    
+    .popular-items__description {
+      font-size: 0.8125rem;
+      margin-bottom: 0.875rem;
+    }
+    
+    .popular-items__price {
+      font-size: 1.1875rem;
+    }
+    
+    .popular-items__button {
+      padding: 7px 14px;
+      font-size: 0.8125rem;
+    }
+    
+    .popular-items__badge {
+      font-size: 0.65rem;
+      padding: 5px 10px;
+    }
+    
+    .popular-items__list::-webkit-scrollbar {
+      height: 7px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .popular-items {
+      padding: 1.75rem 0.875rem;
+    }
+    
+    .popular-items__title {
+      font-size: 1.625rem;
+      margin-bottom: 1.75rem;
+    }
+    
+    .popular-items__list {
+      gap: 1rem;
+      padding: 0.5rem 0.125rem;
+      mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+    
+    .popular-items__item {
+      min-width: 165px;
+      max-width: 220px;
+      border-radius: 12px;
+    }
+    
+    .popular-items__image-wrapper {
+      height: 130px;
+    }
+    
+    .popular-items__content {
+      padding: 0.875rem;
+    }
+    
+    .popular-items__name {
+      font-size: 0.9375rem;
+      margin-bottom: 0.35rem;
+    }
+    
+    .popular-items__description {
+      font-size: 0.75rem;
+      margin-bottom: 0.75rem;
+      -webkit-line-clamp: 1;
+    }
+    
+    .popular-items__footer {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+    
+    .popular-items__price {
+      font-size: 1.125rem;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .popular-items__button {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 0.875rem;
+    }
+    
+    .popular-items__badge {
+      top: 10px;
+      right: 10px;
+      font-size: 0.6rem;
+      padding: 4px 8px;
+    }
+    
+    .popular-items__list::-webkit-scrollbar {
+      height: 6px;
+    }
+  }
+  
+  /* ========================================
+     УЛУЧШЕНИЯ ДОСТУПНОСТИ
+     ======================================== */
+  
+  .popular-items__list:focus-visible {
+    outline: 3px solid rgba(200, 155, 60, 0.4);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+  
+  .popular-items__item:focus-visible {
+    outline: 3px solid rgba(200, 155, 60, 0.5);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(200, 155, 60, 0.2);
+    border-color: #c89b3c;
+  }
+  
+  .popular-items__item:focus-visible .popular-items__image {
+    filter: brightness(0.95);
+  }
+  
+  /* ========================================
+     АНИМАЦИИ ПОЯВЛЕНИЯ
+     ======================================== */
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .popular-items__item {
+    animation: fadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(0.08s * var(--item-index, 0));
+  }
+  
+  /* ========================================
+     ПЕЧАТЬ
+     ======================================== */
+  
+  @media print {
+    .popular-items {
+      padding: 1rem;
+    }
+    
+    .popular-items__list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      overflow-x: visible;
+      justify-content: center;
+    }
+    
+    .popular-items__item {
+      box-shadow: none;
+      border: 2px solid #ddd;
+      min-width: auto;
+      max-width: none;
+      page-break-inside: avoid;
+      margin: 0 auto 1rem;
+    }
+    
+    .popular-items__badge,
+    .popular-items__button {
+      display: none;
+    }
+    
+    .popular-items__title {
+      color: #000;
+    }
+    
+    .popular-items__price {
+      color: #000;
+    }
+  }
+  
+  /* ========================================
+     ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ
+     ======================================== */
+  
+  .popular-items__button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }

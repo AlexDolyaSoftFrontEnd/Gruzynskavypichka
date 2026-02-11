@@ -4,17 +4,36 @@
 .product-hero {
   display: grid;
   place-items: center;
-  padding: 0px;
-  margin:  100px 70px;
-  height: 800px;
+  padding: 80px 60px;
+  margin: 0px auto;
+  margin-top: 100px;
   width: 90%;
+  max-width: 1200px;
+  min-height: 700px;
   color: #fff;
   overflow: hidden;
+  position: relative;
+  text-align: center;
 
   background-image: url("https://gruzynskavypichka.com/images/under-header-photo-logo.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* ===============================
+   Overlay
+================================ */
+.product-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 16px;
 }
 
 /* ===============================
@@ -22,22 +41,31 @@
 ================================ */
 .product-hero__container {
   position: relative;
-  max-width: 1100px;
+  z-index: 2;
   width: 100%;
   display: grid;
-  gap: 40px;
+  gap: 24px;
   justify-items: center;
   text-align: center;
+  padding: 0 20px;
 }
 
 /* ===============================
    Image
 ================================ */
 .product-hero__image {
-  max-width: 100%;
-  max-height: 620px;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
   border-radius: 12px;
-  display: block;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-hero__image:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 /* ===============================
@@ -45,30 +73,71 @@
 ================================ */
 .product-hero__title {
   margin: 0;
-  font-size: clamp(32px, 4vw, 48px);
+  font-size: clamp(28px, 5vw, 52px);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  line-height: 1.2;
 }
 
 .product-hero__subtitle {
-  margin-top: 12px;
-  font-size: 12px;
+  margin-top: 8px;
+  font-size: clamp(12px, 1.5vw, 16px);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.75;
+  line-height: 1.4;
 }
 
 /* ===============================
    Responsive
 ================================ */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .product-hero {
-    padding: 40px 16px;
+    padding: 60px 40px;
   }
 
   .product-hero__image {
-    max-height: 420px;
+    max-width: 90%;
+    max-height: 500px;
   }
 }
 
+@media (max-width: 768px) {
+  .product-hero {
+    padding: 40px 20px;
+    margin: 60px auto;
+    min-height: 500px;
+  }
+
+  .product-hero__title {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+
+  .product-hero__subtitle {
+    font-size: clamp(10px, 3vw, 14px);
+  }
+
+  .product-hero__image {
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-hero {
+    padding: 30px 16px;
+    margin: 40px auto;
+  }
+
+  .product-hero__title {
+    font-size: clamp(20px, 7vw, 28px);
+  }
+
+  .product-hero__subtitle {
+    font-size: clamp(10px, 4vw, 12px);
+  }
+
+  .product-hero__image {
+    max-height: 250px;
+  }
+}

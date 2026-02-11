@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./OrderModal.css";
 
@@ -13,7 +13,6 @@ export interface OrderFormValues {
   name: string;
   phone: string;
   email: string;
-  city: string;
   address: string;
   comment: string;
 }
@@ -40,7 +39,6 @@ const initialValues: OrderFormValues = {
   name: "",
   phone: "",
   email: "",
-  city: "",
   address: "",
   comment: "",
 };
@@ -50,14 +48,20 @@ const initialValues: OrderFormValues = {
 ========================= */
 
 const schema = Yup.object({
-  name: Yup.string().min(2).required(),
+  name: Yup.string()
+    .min(2, "Мінімум 2 символи")
+    .max(50, "Максимум 50 символів")
+    .required("Обовʼязково"),
   phone: Yup.string()
-    .matches(/^\+380\d{9}$/)
-    .required(),
-  email: Yup.string().email().required(),
-  city: Yup.string().required(),
-  address: Yup.string().required(),
-  comment: Yup.string(),
+    .matches(/^\+380\d{9}$/, "Формат: +380XXXXXXXXX")
+    .required("Обовʼязково"),
+  email: Yup.string()
+    .email("Некоректний email")
+    .required("Обовʼязково"),
+  address: Yup.string()
+    .min(10, "Будь ласка, вкажіть повну адресу з містом")
+    .required("Обовʼязково"),
+  comment: Yup.string().max(500, "Максимум 500 символів"),
 });
 
 /* =========================
@@ -85,40 +89,123 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 
   return (
     <div className="order-modal order-modal--open">
-      <div className="order-modal__backdrop" onClick={onClose} />
+      {/* Backdrop */}
+      <button
+        type="button"
+        className="order-modal__backdrop"
+        onClick={onClose}
+        aria-label="Закрити модальне вікно"
+      />
 
-      <aside className="order-modal__panel">
-        <h2 className="order-modal__title">Замовлення</h2>
+      {/* Dialog */}
+      <aside
+        className="order-modal__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="order-modal-title"
+      >
+        <header className="order-modal__header">
+          <h2
+            id="order-modal-title"
+            className="order-modal__title"
+          >
+            Замовлення
+          </h2>
+          <div className="order-modal__subtitle">
+            Смачні хачапурі та традиційні страви прямо до вашого столу
+          </div>
+
+          <button
+            type="button"
+            className="order-modal__close"
+            onClick={onClose}
+            aria-label="Закрити"
+          >
+            ×
+          </button>
+        </header>
 
         <Formik
           initialValues={initialValues}
           validationSchema={schema}
-          onSubmit={(values, helpers) => {
-            console.log("ORDER:", values);
-            helpers.resetForm();
-            onClose();
+          onSubmit={async (values, helpers) => {
+            try {
+              const response = await fetch("/api/order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  ...values,
+                  cuisine: "georgian",
+                  timestamp: new Date().toISOString()
+                }),
+              });
+
+              if (!response.ok) {
+                throw new Error("Помилка при відправці");
+              }
+
+              helpers.resetForm();
+              onClose();
+              alert("Ваше замовлення грузинської випічки прийнято! Очікуйте дзвінка для підтвердження.");
+            } catch (err) {
+              console.error(err);
+              alert("Помилка при відправці замовлення. Будь ласка, спробуйте ще раз.");
+            }
           }}
         >
-          {({ isValid }) => (
-            <Form className="order-form">
-              <FieldBlock name="name" label="Імʼя" />
-              <FieldBlock name="phone" label="Телефон" placeholder="+380..." />
-              <FieldBlock name="email" label="Email" type="email" />
-              <FieldBlock name="city" label="Місто" />
-              <FieldBlock name="address" label="Адреса" />
-              <FieldBlock
-                name="comment"
-                label="Коментар"
-                as="textarea"
-              />
+          {({ isValid, isSubmitting, errors, touched }) => (
+            <Form className="order-form" noValidate>
+              <fieldset className="order-form__fields">
+                <legend className="visually-hidden">
+                  Контактні дані для замовлення випічки
+                </legend>
 
-              <button type="submit" disabled={!isValid}>
-                Замовити
-              </button>
+                <FieldBlock 
+                  name="name" 
+                  label="Ваше ім'я" 
+                  placeholder="Ніно, Гіоргі, Маріам або ваше ім'я" 
+                  autoComplete="name" 
+                />
+                <FieldBlock
+                  name="phone"
+                  label="Телефон"
+                  placeholder="+380 XX XXX XX XX"
+                  autoComplete="tel"
+                />
+                <FieldBlock
+                  name="email"
+                  label="Email"
+                  type="email"
+                  placeholder="vasha.pochta@email.com"
+                  autoComplete="email"
+                />
+                <FieldBlock
+                  name="address"
+                  label="Адреса доставки"
+                  placeholder="м. Київ, вул. Хрещатик, 15, під'їзд 2, кв. 42"
+                  autoComplete="street-address"
+                />
+                <FieldBlock
+                  name="comment"
+                  label="Бажання до замовлення"
+                  placeholder="Наприклад: гаряче хачапурі, додатково сир сулугуні, без часнику, зелень окремо..."
+                  as="textarea"
+                />
+              </fieldset>
 
-              <button type="button" onClick={onClose}>
-                Закрити
-              </button>
+              <div className="order-form__info">
+                <p>Доставка: 45-60 хвилин</p>
+              </div>
+
+              <footer className="order-form__actions">
+                <button
+                  type="submit"
+                  className="order-form__submit"
+                  disabled={!isValid || isSubmitting}
+                >
+                  {isSubmitting ? "Готуємо ваше замовлення..." : "Замовити хачапурі"}
+                </button>
+              </footer>
             </Form>
           )}
         </Formik>
@@ -141,18 +228,33 @@ function FieldBlock({
 }: FieldBlockProps) {
   return (
     <div className="order-form__field">
-      <label htmlFor={name}>{label}</label>
+      <label
+        htmlFor={name}
+        className="order-form__label"
+      >
+        {label}
+      </label>
 
       <Field
         id={name}
         name={name}
         as={as}
-        type={type}
+        type={as === "input" ? type : undefined}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        className="order-form__input"
       />
-
-      <ErrorMessage name={name} component="span" />
+      
+      <div className="order-form__error">
+        <Field
+          name={name}
+          render={({ form }: any) => 
+            form.touched[name] && form.errors[name] 
+              ? <div className="order-form__error-text">{form.errors[name]}</div> 
+              : null
+          }
+        />
+      </div>
     </div>
   );
 }

@@ -32,7 +32,8 @@ export default function Header() {
             <Image
               src="/logo/logo.png"
               alt="Грузінська пекарня"
-              className="header__logo-image"
+              height={100}
+              width={100}
             />
           </Link>
 
@@ -52,7 +53,7 @@ export default function Header() {
             className="header__cta"
             onClick={() => setIsOrderOpen(true)}
           >
-            Для замовлення →
+            Замовлення
           </button>
         </div>
       </header>

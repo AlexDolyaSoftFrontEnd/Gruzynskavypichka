@@ -1,0 +1,103 @@
+.footer {
+    background-color: #ffffff;
+    border-top: 2px solid #000000;
+    padding: 40px 0 20px;
+    color: #333333;
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+  
+  .footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footer__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+  
+  .footer__contact {
+    flex: 1 0 200px;
+  }
+  
+  .footer__phone {
+    font-size: 24px;
+    font-weight: 700;
+    color: #e53935;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.3s;
+  }
+  
+  .footer__phone:hover {
+    opacity: 0.8;
+  }
+  
+  .footer__info {
+    flex: 1 0 300px;
+    text-align: center;
+  }
+  
+  .footer__address,
+  .footer__hours {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  
+  .footer__greeting {
+    flex: 1 0 200px;
+    text-align: right;
+  }
+  
+  .footer__slogan {
+    font-size: 22px;
+    font-weight: 600;
+    font-style: italic;
+    color: #4a4a4a;
+  }
+  
+  .footer__bottom {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+    text-align: center;
+  }
+  
+  .footer__copyright {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .footer__content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .footer__greeting {
+      text-align: left;
+      margin-top: 20px;
+    }
+    
+    .footer__info {
+      text-align: left;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer__phone {
+      font-size: 20px;
+    }
+    
+    .footer__address,
+    .footer__hours {
+      font-size: 16px;
+    }
+  }
