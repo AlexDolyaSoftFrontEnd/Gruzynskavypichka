@@ -5,10 +5,6 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./OrderModal.css";
 
-/* =========================
-   Interfaces
-========================= */
-
 export interface OrderFormValues {
   name: string;
   phone: string;
@@ -31,10 +27,6 @@ interface FieldBlockProps {
   as?: "input" | "textarea";
 }
 
-/* =========================
-   Initial values
-========================= */
-
 const initialValues: OrderFormValues = {
   name: "",
   phone: "",
@@ -42,10 +34,6 @@ const initialValues: OrderFormValues = {
   address: "",
   comment: "",
 };
-
-/* =========================
-   Validation
-========================= */
 
 const schema = Yup.object({
   name: Yup.string()
@@ -63,10 +51,6 @@ const schema = Yup.object({
     .required("Обовʼязково"),
   comment: Yup.string().max(500, "Максимум 500 символів"),
 });
-
-/* =========================
-   Component
-========================= */
 
 export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
   useEffect(() => {
@@ -89,7 +73,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 
   return (
     <div className="order-modal order-modal--open">
-      {/* Backdrop */}
       <button
         type="button"
         className="order-modal__backdrop"
@@ -97,7 +80,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         aria-label="Закрити модальне вікно"
       />
 
-      {/* Dialog */}
       <aside
         className="order-modal__panel"
         role="dialog"
@@ -157,7 +139,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             <Form className="order-form" noValidate>
               <fieldset className="order-form__fields">
                 <legend className="visually-hidden">
-                  Контактні дані для замовлення випічки
+                  Контактні дані для замовлення
                 </legend>
 
                 <FieldBlock 
@@ -168,34 +150,27 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                 />
                 <FieldBlock
                   name="phone"
-                  label="Телефон"
+                  label="Номер телефону"
                   placeholder="+380 XX XXX XX XX"
                   autoComplete="tel"
                 />
                 <FieldBlock
-                  name="email"
-                  label="Email"
-                  type="email"
-                  placeholder="vasha.pochta@email.com"
-                  autoComplete="email"
-                />
-                <FieldBlock
                   name="address"
-                  label="Адреса доставки"
-                  placeholder="м. Київ, вул. Хрещатик, 15, під'їзд 2, кв. 42"
-                  autoComplete="street-address"
+                  label="Куди доставити"
+                  placeholder="Зона доставки: до 50 км від Віти-Поштової"
+                  autoComplete="shipping street-address"
                 />
                 <FieldBlock
                   name="comment"
-                  label="Бажання до замовлення"
+                  label="Побажання до замовлення"
                   placeholder="Наприклад: гаряче хачапурі, додатково сир сулугуні, без часнику, зелень окремо..."
                   as="textarea"
                 />
               </fieldset>
 
               <div className="order-form__info">
-                <p>Доставка: 45-60 хвилин</p>
-              </div>
+                <p>Ваш смак Грузії — вже за <strong>40–60 хвилин</strong>!</p>
+              </div> 
 
               <footer className="order-form__actions">
                 <button
@@ -203,7 +178,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                   className="order-form__submit"
                   disabled={!isValid || isSubmitting}
                 >
-                  {isSubmitting ? "Готуємо ваше замовлення..." : "Замовити хачапурі"}
+                  {isSubmitting ? "Готуємо ваше замовлення..." : "Замовити випичку"}
                 </button>
               </footer>
             </Form>
@@ -213,10 +188,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
     </div>
   );
 }
-
-/* =========================
-   Field block
-========================= */
 
 function FieldBlock({
   name,
@@ -246,14 +217,13 @@ function FieldBlock({
       />
       
       <div className="order-form__error">
-        <Field
-          name={name}
-          render={({ form }: any) => 
+        <Field name={name}>
+          {({ form }: any) => 
             form.touched[name] && form.errors[name] 
               ? <div className="order-form__error-text">{form.errors[name]}</div> 
               : null
           }
-        />
+        </Field>
       </div>
     </div>
   );

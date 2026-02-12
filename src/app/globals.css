@@ -1,4 +1,9 @@
-* {
+/* ==================================================
+   Global Reset & Normalize
+================================================== */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,22 +11,278 @@
 
 html {
   scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.5;
+  color: #2b2b2b;
+  background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
+/* ==================================================
+   Typography
+================================================== */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* ==================================================
+   Images & Media
+================================================== */
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
+picture {
+  display: contents;
+}
+
+img {
+  border-style: none;
+}
+
+/* ==================================================
+   Links
+================================================== */
+a {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==================================================
+   Lists
+================================================== */
+ul, ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul, ol, dl {
+  margin: 0;
+}
+
+/* ==================================================
+   Forms & Inputs
+================================================== */
 input, button, textarea, select {
   font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  outline: none;
+  appearance: none;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+form, fieldset {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/* ==================================================
+   Tables
+================================================== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+caption {
+  text-align: left;
+}
+
+th, td {
+  padding: 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+/* ==================================================
+   Interactive Elements
+================================================== */
+*:focus {
+  outline: none;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #c89b3c;
+  outline-offset: 2px;
+}
+
+/* ==================================================
+   Scrollbar - Gold Theme (#c89b3c)
+================================================== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c89b3c 0%, #9f7a28 100%);
+  border-radius: 5px;
+  border: 2px solid #0a0a0a;
+  box-shadow: 0 2px 4px rgba(200, 155, 60, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d1a54a 0%, #a88235 100%);
+  box-shadow: 0 2px 6px rgba(200, 155, 60, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #e8d8b5 0%, #c89b3c 100%);
+  box-shadow: 0 2px 8px rgba(200, 155, 60, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: #0a0a0a;
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #c89b3c #0a0a0a;
+}
+
+/* ==================================================
+   Selection
+================================================== */
+::selection {
+  background-color: #c89b3c;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #c89b3c;
+  color: #ffffff;
+}
+
+/* ==================================================
+   Print Styles
+================================================== */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  img {
+    page-break-inside: avoid;
+  }
+
+  h2, h3, p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2, h3 {
+    page-break-after: avoid;
+  }
+}
+
+/* ==================================================
+   Accessibility
+================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==================================================
+   Print Optimization
+================================================== */
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
 }

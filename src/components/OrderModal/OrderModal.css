@@ -1,20 +1,4 @@
 /* ==================================================
-   Root variables (Light theme)
-================================================== */
-:root {
-  --accent-main: #c89b3c;
-  --accent-soft: #f4e8cf;
-  --accent-dark: #9f7a28;
-  --bg-backdrop: rgba(0, 0, 0, 0.45);
-  --bg-panel: #fffdf9;
-  --text-main: #2b2b2b;
-  --text-muted: #7a746a;
-  --text-placeholder: #b1a995;
-  --border-main: #e6dcc7;
-  --error: #d63b3b;
-}
-
-/* ==================================================
    Modal root
 ================================================== */
 .order-modal {
@@ -37,7 +21,7 @@
 .order-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: var(--bg-backdrop);
+  background: rgba(0, 0, 0, 0.9);
 }
 
 /* ==================================================
@@ -49,13 +33,13 @@
   right: 0;
   width: min(820px, 100%);
   height: 100%;
-  background: var(--bg-panel);
-  color: var(--text-main);
+  background: #0a0a0a;
+  color: #ffffff;
   padding: 64px 72px;
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.15);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.4);
 }
 
 .order-modal--open .order-modal__panel {
@@ -76,56 +60,45 @@
 .order-modal__title {
   margin: 0 0 48px;
   font-size: clamp(32px, 4vw, 48px);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--accent-dark);
+  color: #c89b3c;
 }
 
 /* ==================================================
-   Close Button (Header)
+   Close Button (Header) - Only on mobile
 ================================================== */
 .order-modal__close {
+  display: none;
   position: absolute;
-  top: 24px;
-  right: 24px;
-  
+  top: 10px;
+  right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
   width: 48px;
   height: 48px;
-  
-  background: linear-gradient(135deg, var(--accent-soft), #e8d8b5);
-  color: var(--accent-dark);
+  background: linear-gradient(135deg, #c89b3c, #9f7a28);
+  color: #ffffff;
   border: none;
   border-radius: 50%;
-  
   font-size: 28px;
   font-weight: 300;
   line-height: 1;
-  
   cursor: pointer;
   transition: all 0.2s ease;
-  
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .order-modal__close:hover {
-  background: linear-gradient(135deg, var(--accent-main), var(--accent-dark));
-  color: #ffffff;
-  transform: rotate(90deg) scale(1.05);
-  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.3);
+  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.5);
 }
 
-.order-modal__close:active {
-  transform: rotate(90deg) scale(0.95);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.order-modal__close:focus-visible {
-  outline: 2px solid var(--accent-main);
-  outline-offset: 4px;
+/* Показываем кнопку закрытия только на мобильных устройствах */
+@media (max-width: 768px) {
+  .order-modal__close {
+    display: flex;
+  }
 }
 
 /* ==================================================
@@ -150,7 +123,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #e8d8b5;
 }
 
 /* ==================================================
@@ -160,22 +133,22 @@
   width: 100%;
   padding: 14px 16px;
   border-radius: 14px;
-  border: 1px solid var(--border-main);
-  background: #ffffff;
+  border: 1px solid #3a3a3a;
+  background: #1a1a1a;
   font-size: 16px;
-  color: var(--text-main);
+  color: #ffffff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .order-form__input::placeholder {
-  color: var(--text-placeholder);
+  color: #666666;
   opacity: 1;
 }
 
 .order-form__input:focus {
   outline: none;
-  border-color: var(--accent-main);
-  box-shadow: 0 0 0 3px rgba(200, 155, 60, 0.25);
+  border-color: #c89b3c;
+  box-shadow: 0 0 0 3px rgba(200, 155, 60, 0.3);
 }
 
 /* ==================================================
@@ -193,7 +166,7 @@
 ================================================== */
 .order-form__error {
   font-size: 13px;
-  color: var(--error);
+  color: #ff5252;
   min-height: 16px;
 }
 
@@ -204,38 +177,34 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
   width: 100%;
   height: 64px;
-  
-  background: linear-gradient(135deg, var(--accent-main), var(--accent-dark));
+  background: linear-gradient(135deg, #c89b3c, #9f7a28);
   color: #ffffff;
   border: none;
   border-radius: 10px;
-  
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.25);
+  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.4);
 }
 
 .order-form__submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.35);
+  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.5);
   background: linear-gradient(135deg, #d1a54a, #a88235);
 }
 
 .order-form__submit:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(200, 155, 60, 0.2);
+  box-shadow: 0 2px 10px rgba(200, 155, 60, 0.3);
 }
 
 .order-form__submit:focus-visible {
-  outline: 2px solid var(--accent-main);
+  outline: 2px solid #c89b3c;
   outline-offset: 4px;
 }
 
@@ -254,39 +223,35 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  
-  background: linear-gradient(135deg, var(--accent-main), var(--accent-dark));
+  background: linear-gradient(135deg, #c89b3c, #9f7a28);
   color: #ffffff;
   border: none;
   border-radius: 10px;
-  
   padding: 14px 28px;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.25);
-  
+  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.4);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .btn-modal-open:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.35);
+  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.5);
   background: linear-gradient(135deg, #d1a54a, #a88235);
 }
 
 .btn-modal-open:active {
   transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(200, 155, 60, 0.2);
+  box-shadow: 0 2px 10px rgba(200, 155, 60, 0.3);
 }
 
 .btn-modal-open:focus-visible {
-  outline: 2px solid var(--accent-main);
+  outline: 2px solid #c89b3c;
   outline-offset: 4px;
 }
 
@@ -305,26 +270,23 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  
   background: transparent;
-  color: var(--accent-dark);
-  border: 1px solid var(--border-main);
+  color: #c89b3c;
+  border: 1px solid #3a3a3a;
   border-radius: 10px;
-  
   padding: 12px 24px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-modal-close:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent-main);
-  color: var(--accent-dark);
+  background: #1a1a1a;
+  border-color: #c89b3c;
+  color: #e8d8b5;
   transform: translateY(-1px);
 }
 
@@ -333,7 +295,7 @@
 }
 
 .btn-modal-close:focus-visible {
-  outline: 2px solid var(--accent-main);
+  outline: 2px solid #c89b3c;
   outline-offset: 4px;
 }
 
@@ -413,7 +375,7 @@
 .order-form__input:focus-visible,
 .btn-modal-open:focus-visible,
 .btn-modal-close:focus-visible {
-  outline: 2px solid var(--accent-main);
+  outline: 2px solid #c89b3c;
   outline-offset: 4px;
 }
 
@@ -427,11 +389,6 @@
   
   .order-modal__title {
     margin-bottom: 32px;
-  }
-  
-  .order-modal__close {
-    top: 16px;
-    right: 16px;
   }
   
   .order-form__submit {
@@ -498,4 +455,41 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ==================================================
+   Optimizations & Fixes
+================================================== */
+/* Унифицированы состояния фокуса для всех интерактивных элементов */
+.order-modal__close:focus,
+.btn-modal-close:focus,
+.order-form__input:focus {
+  outline: none;
+}
+
+/* Улучшена читаемость плейсхолдера */
+@media (prefers-contrast: high) {
+  .order-form__input::placeholder {
+    opacity: 0.85;
+  }
+}
+
+/* Гарантированное скрытие скроллбара панели в WebKit */
+.order-modal__panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.order-modal__panel::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-radius: 4px;
+}
+
+.order-modal__panel::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 4px;
+  border: 2px solid #0a0a0a;
+}
+
+.order-modal__panel::-webkit-scrollbar-thumb:hover {
+  background: #c89b3c;
 }

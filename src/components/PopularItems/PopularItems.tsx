@@ -13,27 +13,27 @@ export default function PopularItems() {
   const items: PopularItem[] = [
     {
       id: 1,
-      name: 'По-аджарськи',
+      name: 'Хінкалі баранина',
       price: '220 грн',
-      image: '/images/adzharski.png',
+      image: '/menu/khinkali.png',
     },
     {
       id: 2,
-      name: 'Хінкалі мікс',
-      price: '25 грн/шт',
-      image: '/images/khinkali.png',
+      name: "Салат по-грузинськи",
+      price: '100 грн',
+      image: '/menu/salat.png',
     },
     {
       id: 3,
-      name: 'Хачапурі по-царські',
-      price: '320 грн',
-      image: '/images/khachapuri.png',
+      name: 'Лаваш-караваш',
+      price: '150 грн',
+      image: '/menu/karavash.jpeg',
     },
     {
       id: 4,
       name: 'Люля-кебаб баранина',
       price: '320 грн',
-      image: '/images/kebab.png',
+      image: '/menu/kebab.png',
     },
   ];
 
