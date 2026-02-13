@@ -87,12 +87,10 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         aria-labelledby="order-modal-title"
       >
         <header className="order-modal__header">
-          <h2
-            id="order-modal-title"
-            className="order-modal__title"
-          >
+          <h2 id="order-modal-title" className="order-modal__title">
             Замовлення
           </h2>
+
           <div className="order-modal__subtitle">
             Смачні хачапурі та традиційні страви прямо до вашого столу
           </div>
@@ -112,65 +110,84 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
           validationSchema={schema}
           onSubmit={async (values, helpers) => {
             try {
-              const response = await fetch("/api/order", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  ...values,
-                  cuisine: "georgian",
-                  timestamp: new Date().toISOString()
-                }),
-              });
+              const WHATSAPP_NUMBER = "380935450594";
 
-              if (!response.ok) {
-                throw new Error("Помилка при відправці");
-              }
+              const message = `
+НОВЕ ЗАМОВЛЕННЯ
+
+Ім'я: ${values.name}
+Телефон: ${values.phone}
+Email: ${values.email}
+Адреса: ${values.address}
+
+Коментар:
+${values.comment || "немає"}
+
+Час замовлення: ${new Date().toLocaleString("uk-UA")}
+              `;
+
+              const encodedMessage = encodeURIComponent(message.trim());
+              const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+              window.open(whatsappUrl, "_blank");
 
               helpers.resetForm();
               onClose();
-              alert("Ваше замовлення грузинської випічки прийнято! Очікуйте дзвінка для підтвердження.");
             } catch (err) {
               console.error(err);
-              alert("Помилка при відправці замовлення. Будь ласка, спробуйте ще раз.");
+              alert("Помилка при формуванні замовлення.");
             }
           }}
         >
-          {({ isValid, isSubmitting, errors, touched }) => (
+          {({ isValid, isSubmitting }) => (
             <Form className="order-form" noValidate>
               <fieldset className="order-form__fields">
                 <legend className="visually-hidden">
                   Контактні дані для замовлення
                 </legend>
 
-                <FieldBlock 
-                  name="name" 
-                  label="Ваше ім'я" 
-                  placeholder="Ніно, Гіоргі, Маріам або ваше ім'я" 
-                  autoComplete="name" 
+                <FieldBlock
+                  name="name"
+                  label="Ваше ім'я"
+                  placeholder="Ніно, Гіоргі, Маріам або ваше ім'я"
+                  autoComplete="name"
                 />
+
                 <FieldBlock
                   name="phone"
                   label="Номер телефону"
                   placeholder="+380 XX XXX XX XX"
                   autoComplete="tel"
                 />
+
+                <FieldBlock
+                  name="email"
+                  label="Email"
+                  type="email"
+                  placeholder="example@email.com"
+                  autoComplete="email"
+                />
+
                 <FieldBlock
                   name="address"
                   label="Куди доставити"
                   placeholder="Зона доставки: до 50 км від Віти-Поштової"
                   autoComplete="shipping street-address"
                 />
+
                 <FieldBlock
                   name="comment"
                   label="Побажання до замовлення"
-                  placeholder="Наприклад: гаряче хачапурі, додатково сир сулугуні, без часнику, зелень окремо..."
+                  placeholder="Наприклад: гаряче хачапурі, додатково сир сулугуні..."
                   as="textarea"
                 />
               </fieldset>
 
               <div className="order-form__info">
-                <p>Ваш смак Грузії — вже за <strong>40–60 хвилин</strong>!</p>
-              </div> 
+                <p>
+                  Ваш смак Грузії — вже за <strong>40–60 хвилин</strong>!
+                </p>
+              </div>
 
               <footer className="order-form__actions">
                 <button
@@ -178,7 +195,9 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                   className="order-form__submit"
                   disabled={!isValid || isSubmitting}
                 >
-                  {isSubmitting ? "Готуємо ваше замовлення..." : "Замовити випичку"}
+                  {isSubmitting
+                    ? "Формуємо замовлення..."
+                    : "Замовити випічку"}
                 </button>
               </footer>
             </Form>
@@ -199,10 +218,7 @@ function FieldBlock({
 }: FieldBlockProps) {
   return (
     <div className="order-form__field">
-      <label
-        htmlFor={name}
-        className="order-form__label"
-      >
+      <label htmlFor={name} className="order-form__label">
         {label}
       </label>
 
@@ -215,13 +231,15 @@ function FieldBlock({
         autoComplete={autoComplete}
         className="order-form__input"
       />
-      
+
       <div className="order-form__error">
         <Field name={name}>
-          {({ form }: any) => 
-            form.touched[name] && form.errors[name] 
-              ? <div className="order-form__error-text">{form.errors[name]}</div> 
-              : null
+          {({ form }: any) =>
+            form.touched[name] && form.errors[name] ? (
+              <div className="order-form__error-text">
+                {form.errors[name]}
+              </div>
+            ) : null
           }
         </Field>
       </div>
