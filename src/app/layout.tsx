@@ -20,9 +20,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uk">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       <body>{children}</body>
     </html>
   );

@@ -14,7 +14,7 @@ export default function PopularItems() {
     {
       id: 1,
       name: 'Хінкалі баранина',
-      price: '220 грн',
+      price: '230 грн / шт',
       image: '/menu/khinkali.png',
     },
     {
