@@ -1,7 +1,7 @@
 "use client";
 
 import "./Footer.css";
-import { FaWhatsapp, FaTelegram, FaViber, FaMapMarkerAlt} from "react-icons/fa";
+import { FaWhatsapp, FaTelegram, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Footer() {
   const CONTACT_PHONE = "+380935450594";
@@ -33,6 +33,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="footer__icon-link"
                 aria-label="Написати у WhatsApp"
+                data-tooltip="WhatsApp"
               >
                 <FaWhatsapp />
               </a>
@@ -44,6 +45,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="footer__icon-link"
                 aria-label="Написати у Telegram"
+                data-tooltip="Telegram"
               >
                 <FaTelegram />
               </a>
@@ -55,6 +57,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="footer__icon-link"
                 aria-label="Переглянути на карті"
+                data-tooltip="Maps"
               >
                 <FaMapMarkerAlt />
               </a>

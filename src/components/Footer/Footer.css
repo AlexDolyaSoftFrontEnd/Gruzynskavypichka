@@ -5,7 +5,7 @@
   padding: 60px 0 40px;
   margin-top: auto;
   position: relative;
-  overflow: hidden;
+  /* УБРАНО overflow: hidden для корректного отображения тултипов */
   width: 100%;
 }
 
@@ -83,6 +83,7 @@
   text-decoration: none;
   transition: all 0.3s ease;
   border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative; /* Для позиционирования тултипа */
 }
 
 .footer__icon-link:hover {
@@ -94,6 +95,64 @@
 .footer__icon-link svg {
   width: 20px;
   height: 20px;
+}
+
+/* Стили для кастомных тултипов */
+.footer__icon-link::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(0, 0, 0, 0.92);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.3px;
+  pointer-events: none;
+}
+
+/* Стрелка тултипа */
+.footer__icon-link::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Показ тултипа при наведении и фокусе */
+.footer__icon-link:hover::after,
+.footer__icon-link:focus::after,
+.footer__icon-link:hover::before,
+.footer__icon-link:focus::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* Улучшенный фокус для доступности */
+.footer__icon-link:focus {
+  outline: 2px solid #c89b3c;
+  outline-offset: 2px;
 }
 
 /* ============= СЕКЦИЯ ИНФОРМАЦИИ ============= */
@@ -231,6 +290,12 @@
   .footer__address::before,
   .footer__phone::before,
   .footer__hours::before {
+    display: none;
+  }
+
+  /* Скрываем кастомные тултипы на мобильных */
+  .footer__icon-link::after,
+  .footer__icon-link::before {
     display: none;
   }
 
