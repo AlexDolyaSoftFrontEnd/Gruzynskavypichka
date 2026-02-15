@@ -2,6 +2,17 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { 
+  faUtensils, 
+  faRotateRight, 
+  faFire, 
+  faTag, 
+  faWeightScale,
+  faBowlFood,
+  faCircleExclamation,
+  faClock
+} from "@fortawesome/free-solid-svg-icons";
 import "./ProductsItems.css";
 
 interface ProductItem {
@@ -25,7 +36,7 @@ const generateMockData = (): ProductItem[] => {
     {
       id: 1,
       name: "Хачапурі по-аджарські",
-      description: "Склад: сир сулугуні, яйце, вершкове масло, тісто на заквасці.",
+      description: "Тісто на заквасці, сир сулугуні, яйце, вершкове масло.",
       price: 260,
       weight: 550,
       imageUrl: "/menu/khachapuri.png",
@@ -33,87 +44,85 @@ const generateMockData = (): ProductItem[] => {
     },
     {
       id: 2,
-      name: "Хінкалі",
-      description: "Склад: тісто, яловичо-свиняче м'ясо, часник, спеції.",
-      price: 220,
-      weight: 420,
+      name: "Хінкалі (1 шт.)",
+      description: "Традиційна грузинська пампушка з яловичо-свинячим фаршем, бульйоном всередині, часником та спеціями.",
+      price: 32,
+      weight: 100,
       imageUrl: "/menu/khinkali.png",
-      isPopular: false,
+      isPopular: true,
     },
     {
       id: 3,
       name: "Картопля фрі",
-      description: "Склад: сир сулугуні, тісто з хрусткою скоринкою.",
-      price: 50,
-      weight: 500,
+      description: "Золотиста картопля фрі зі спеціальними спеціями.",
+      price: 95,
+      weight: 250,
       imageUrl: "/menu/fri.png",
     },
     {
       id: 4,
       name: "Грузинський лимонад",
-      description: "Склад: Груша, Тархун, Виноград.",
-      price: 290,
+      description: "Освіжаючий напій з натуральними ароматами груші, тархуну та винограду.",
+      price: 85,
       weight: 450,
       imageUrl: "/menu/zadukeli.jpg",
     },
     {
       id: 5,
-      name: "Лосось стейк",
-      description: "Склад: філе лосося, фірмовий маринад",
-      price: 200,
-      weight: 350,
+      name: "Стейк з лосося на грилі",
+      description: "Свіжий лосось у фірмовому маринаді, запечений на грилі.",
+      price: 320,
+      weight: 220,
       imageUrl: "/menu/losos.png",
-      isPopular: false,
     },
     {
       id: 6,
-      name: "Бадріджані",
-      description: "Склад: баклажани, грецькі горіхи, часник, гранатовий соус.",
-      price: 180,
-      weight: 380,
+      name: "Бадріджані з горіховим соусом",
+      description: "Запечені баклажани з соусом з грецьких горіхів, часнику та гранатового соусу.",
+      price: 165,
+      weight: 300,
       imageUrl: "/menu/kurkoyu.png",
     },
     {
       id: 7,
-      name: "Суп Харчо",
-      description: "Склад: яловичина, рис, кінза, волоський горіх, часник, хмели-сунелі.",
-      price: 170,
-      weight: 400,
+      name: "Суп «Харчо»",
+      description: "Насичений суп на яловичому бульйоні з рисом, хмели-сунелі, волоськими горіхами та кінзою.",
+      price: 145,
+      weight: 350,
       imageUrl: "/menu/kharcho.png",
     },
     {
       id: 8,
       name: "Картопля на мангалі",
-      description: "Склад: картопля, спеції.",
-      price: 20,
+      description: "Картопля, запечена на вугіллі з грузинськими спеціями та розмарином.",
+      price: 110,
       weight: 350,
       imageUrl: "/menu/kartoplya.png",
-      isPopular: false,
     },
     {
       id: 9,
-      name: "Сациві з курицею",
-      description: "Склад: куряче філе, грецький соус з горіхів, часник, спеції.",
-      price: 310,
-      weight: 420,
+      name: "Сациві з куриці",
+      description: "Куряче філе в насиченому соусі з грецьких горіхів, часнику та спецій хмели-сунелі.",
+      price: 295,
+      weight: 400,
       imageUrl: "/menu/rebra.png",
     },
     {
       id: 10,
       name: "Овочі гриль",
-      description: "Склад: баклажан, кабачок, гриби шампіньйони, перець болгарський, цибуля",
-      price: 190,
-      weight: 320,
+      description: "Сезонні овочі (баклажан, кабачок, перець, цибуля, гриби) на грилі з оливковою олією та зеленню.",
+      price: 175,
+      weight: 380,
       imageUrl: "/menu/ovochi.png",
     },
     {
       id: 11,
-      name: "Курячий Бульйон",
-      description: "Склад: сир супута, помідори, огірки, зелень, оцет.",
-      price: 170,
-      weight: 380,
+      name: "Курячий бульйон з зеленню",
+      description: "Легкий бульйон з курки, зелені, коренів та спецій. Подавати з грінками.",
+      price: 85,
+      weight: 300,
       imageUrl: "/menu/bulyon.png",
-    }
+    },
   ];
 };
 
@@ -137,12 +146,10 @@ const ProductsItems = ({
         return;
       }
 
-      const mockData = generateMockData();
-
       const timer = setTimeout(() => {
-        setInternalItems(mockData);
+        setInternalItems(generateMockData());
         setIsLoading(false);
-      }, 300);
+      }, 600);
 
       return () => clearTimeout(timer);
     } catch {
@@ -155,9 +162,15 @@ const ProductsItems = ({
 
   if (loading) {
     return (
-      <section className="products-menu products-menu--loading">
-        <h2 className="products-menu__title">{title}</h2>
-        <div className="products-menu__grid">
+      <section 
+        className="products-menu products-menu--loading" 
+        aria-busy="true"
+        aria-label="Завантаження меню"
+      >
+        <h2 className="products-menu__title">
+          {title}
+        </h2>
+        <div className="products-menu__grid" role="status">
           {[...Array(9)].map((_, i) => (
             <div key={i} className="products-menu__item-skeleton">
               <div className="products-menu__image-skeleton"></div>
@@ -175,30 +188,49 @@ const ProductsItems = ({
 
   if (hasError) {
     return (
-      <section className="products-menu">
+      <section className="products-menu" aria-live="polite">
         <h2 className="products-menu__title">{title}</h2>
-        <p className="products-menu__error">
-          Помилка завантаження товарів. Спробуйте пізніше.
-        </p>
+        <div className="products-menu__error-container">
+          <p className="products-menu__error">
+            <FontAwesomeIcon icon={faCircleExclamation} className="products-menu__error-icon" />
+            Не вдалося завантажити меню. 
+            <button 
+              onClick={() => window.location.reload()} 
+              className="products-menu__retry-btn"
+              aria-label="Спробувати завантажити меню ще раз"
+            >
+              <FontAwesomeIcon icon={faRotateRight} className="products-menu__retry-icon" />
+              Спробувати знову
+            </button>
+          </p>
+        </div>
       </section>
     );
   }
 
   if (internalItems.length === 0) {
     return (
-      <section className="products-menu">
+      <section className="products-menu" aria-live="polite">
         <h2 className="products-menu__title">{title}</h2>
-        <p className="products-menu__empty">Товари відсутні</p>
+        <div className="products-menu__empty-container">
+          <FontAwesomeIcon icon={faBowlFood} className="products-menu__empty-icon" />
+          <p className="products-menu__empty">Наразі меню порожнє. Поверніться пізніше.</p>
+        </div>
       </section>
     );
   }
 
-  return (
-    <section className="products-menu">
-      <h2 className="products-menu__title">{title}</h2>
+  const sortedItems = [...internalItems].sort((a, b) => 
+    Number(b.isPopular) - Number(a.isPopular)
+  );
 
+  return (
+    <section className="products-menu" aria-label={title}>
+      <h2 className="products-menu__title">
+        {title}
+      </h2>
       <div className="products-menu__grid">
-        {internalItems.map((item) => (
+        {sortedItems.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}
       </div>
@@ -214,42 +246,59 @@ const ProductCard = ({ item }: { item: ProductItem }) => {
       className={`products-menu__item ${
         item.isPopular ? "products-menu__item--popular" : ""
       }`}
-      aria-label={`Товар: ${item.name}`}
+      aria-labelledby={`product-name-${item.id}`}
     >
       <div className="products-menu__image-wrapper">
         {!imageError ? (
           <Image
             src={item.imageUrl}
-            alt={item.name}
+            alt={`Страва: ${item.name}. ${item.description}`}
             fill
             className="products-menu__image"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             priority={item.isPopular}
             onError={() => setImageError(true)}
+            loading={item.isPopular ? "eager" : "lazy"}
           />
         ) : (
-          <div className="products-menu__image-placeholder">
-            Зображення недоступне
+          <div 
+            className="products-menu__image-placeholder" 
+            aria-label="Зображення недоступне"
+            role="img"
+          >
+            <FontAwesomeIcon icon={faUtensils} className="products-menu__placeholder-icon" />
+            <span className="visually-hidden">Зображення страви тимчасово недоступне</span>
           </div>
         )}
 
         {item.isPopular && (
-          <span className="products-menu__badge">
+          <span 
+            className="products-menu__badge" 
+            aria-label="Популярна страва"
+          >
+            <FontAwesomeIcon icon={faFire} className="products-menu__badge-icon" />
             Популярне
           </span>
         )}
       </div>
 
       <div className="products-menu__content">
-        <h3 className="products-menu__name">{item.name}</h3>
+        <h3 id={`product-name-${item.id}`} className="products-menu__name">
+          {item.name}
+        </h3>
         <p className="products-menu__description">{item.description}</p>
 
         <div className="products-menu__footer">
-          <span className="products-menu__price">
-            {item.price.toLocaleString("uk-UA")} грн
+          <span className="products-menu__price" aria-label={`Ціна: ${item.price} гривень`}>
+            <FontAwesomeIcon icon={faTag} className="products-menu__price-icon" aria-hidden="true" />
+            {item.price.toLocaleString("uk-UA")}
           </span>
-          <span className="products-menu__weight">
-            {item.weight} г
+          <span 
+            className="products-menu__weight" 
+            aria-label={`Вага: ${item.weight} грамів`}
+          >
+            <FontAwesomeIcon icon={faWeightScale} className="products-menu__weight-icon" aria-hidden="true" />
+            {item.weight}
           </span>
         </div>
       </div>

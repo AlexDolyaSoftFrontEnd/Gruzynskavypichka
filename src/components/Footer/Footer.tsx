@@ -57,7 +57,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="footer__icon-link"
                 aria-label="Переглянути на карті"
-                data-tooltip="Maps"
+                data-tooltip="Карта"
               >
                 <FaMapMarkerAlt />
               </a>
@@ -71,7 +71,15 @@ export default function Footer() {
             </p>
 
             <p className="footer__phone">
-              Мобильний номер: <a href={`tel:${CONTACT_PHONE}`}>{DISPLAY_PHONE}</a>
+              Мобильний номер:{" "}
+              <a
+                href={`tel:${CONTACT_PHONE}`}
+                aria-label="Позвонити"
+                className="footer__phone-link"
+                data-tooltip="Позвонити"
+              >
+                {DISPLAY_PHONE}
+              </a>
             </p>
 
             <p className="footer__hours">

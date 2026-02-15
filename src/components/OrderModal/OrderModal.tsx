@@ -95,6 +95,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             className="order-modal__close"
             onClick={onClose}
             aria-label="Закрити"
+            title="Закрити вікно"
           >
             ×
           </button>
