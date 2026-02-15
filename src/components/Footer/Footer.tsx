@@ -6,7 +6,7 @@ import { FaWhatsapp, FaTelegram, FaViber, FaMapMarkerAlt} from "react-icons/fa";
 export default function Footer() {
   const CONTACT_PHONE = "+380935450594";
   const DISPLAY_PHONE = "+380 93 545 05 94";
-  const CHEF_NAME = "Георгій Берадзе";
+  const CHEF_NAME = "Георгій";
   const MAP_LINK = "https://maps.google.com/?q=Вулиця+Звенигородська,+201,+Віта-Поштова,+Київська+область";
 
   // Форматирование номера для мессенджеров (только цифры)

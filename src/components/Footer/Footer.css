@@ -2,10 +2,11 @@
 .footer {
   background: linear-gradient(180deg, #140a06 0%, #080403 100%);
   color: #ffffff;
-  padding: 60px 20px 40px;
+  padding: 60px 0 40px;
   margin-top: auto;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 /* Декоративная полоса сверху */
@@ -26,12 +27,13 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  padding: 0 20px;
 }
 
 /* ============= ОСНОВНОЕ СОДЕРЖИМОЕ ============= */
 .footer__content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
   gap: 40px;
   margin-bottom: 40px;
 }
@@ -190,7 +192,7 @@
 
 @media (max-width: 1024px) {
   .footer {
-    padding: 50px 20px 35px;
+    padding: 50px 0 35px;
   }
 
   .footer__content {
@@ -209,7 +211,11 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 40px 15px 30px;
+    padding: 40px 0 30px;
+  }
+
+  .footer__container {
+    padding: 0 15px;
   }
 
   .footer__content {
@@ -235,7 +241,11 @@
 
 @media (max-width: 480px) {
   .footer {
-    padding: 30px 10px 25px;
+    padding: 30px 0 25px;
+  }
+
+  .footer__container {
+    padding: 0 10px;
   }
 
   .footer__content {
