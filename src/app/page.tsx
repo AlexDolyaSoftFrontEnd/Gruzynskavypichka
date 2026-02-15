@@ -4,7 +4,7 @@ import PopularItems from '../components/PopularItems/PopularItems';
 import ProductHero from '../components/ProductHero/ProductHero';
 import ProductsItems from '../components/ProductsItems/ProductsItems';
 
-export default function Molfar() {
+export default function Georgianbakery() {
   return (
     <>
       <Header />
