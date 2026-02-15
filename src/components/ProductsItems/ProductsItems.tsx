@@ -100,19 +100,19 @@ const generateMockData = (): ProductItem[] => {
     },
     {
       id: 10,
-      name: "Курячий Бульйон",
-      description: "Склад: сир супута, помідори, огірки, зелень, оцет.",
-      price: 170,
-      weight: 380,
-      imageUrl: "/menu/bulyon.png",
-    },
-    {
-      id: 11,
       name: "Овочі гриль",
       description: "Склад: баклажан, кабачок, гриби шампіньйони, перець болгарський, цибуля",
       price: 190,
       weight: 320,
       imageUrl: "/menu/ovochi.png",
+    },
+    {
+      id: 11,
+      name: "Курячий Бульйон",
+      description: "Склад: сир супута, помідори, огірки, зелень, оцет.",
+      price: 170,
+      weight: 380,
+      imageUrl: "/menu/bulyon.png",
     }
   ];
 };

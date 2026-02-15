@@ -1,495 +1,356 @@
-/* ==================================================
-   Modal root
-================================================== */
+/* ============= МОДАЛЬНОЕ ОКНО ============= */
 .order-modal {
   position: fixed;
-  inset: 0;
-  z-index: 99999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
   opacity: 0;
-  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
 .order-modal--open {
+  display: flex;
   opacity: 1;
-  pointer-events: auto;
 }
 
-/* ==================================================
-   Backdrop
-================================================== */
 .order-modal__backdrop {
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-}
-
-/* ==================================================
-   Panel
-================================================== */
-.order-modal__panel {
-  position: absolute;
   top: 0;
+  left: 0;
   right: 0;
-  width: min(820px, 100%);
+  bottom: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* ============= ПАНЕЛЬ ФОРМЫ ============= */
+.order-modal__panel {
+  background: linear-gradient(135deg, #140a06 0%, #080403 100%);
+  border-radius: 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  width: 100%;
   height: 100%;
-  background: #0a0a0a;
-  color: #ffffff;
-  padding: 64px 72px;
+  max-height: 100vh;
   overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.4);
-}
-
-.order-modal--open .order-modal__panel {
-  transform: translateX(0);
-}
-
-/* ==================================================
-   Header
-================================================== */
-.order-modal__header {
   position: relative;
-  margin-bottom: 48px;
+  z-index: 2;
+  border: none;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ==================================================
-   Title
-================================================== */
+/* ============= ХЕДЕР ============= */
+.order-modal__header {
+  padding: 24px 24px 16px;
+  border-bottom: 2px solid rgba(200, 155, 60, 0.2);
+  position: relative;
+  background: rgba(20, 10, 6, 0.95);
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
 .order-modal__title {
-  margin: 0 0 48px;
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 2rem;
   color: #c89b3c;
+  margin: 0 0 8px;
+  font-weight: 700;
+  text-align: center;
 }
 
-/* ==================================================
-   Close Button (Header) - Only on mobile
-================================================== */
+.order-modal__subtitle {
+  color: #cccccc;
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .order-modal__close {
-  display: none;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
+  background: rgba(200, 155, 60, 0.1);
+  border: 2px solid rgba(200, 155, 60, 0.3);
+  color: #c89b3c;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #c89b3c, #9f7a28);
-  color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  font-size: 28px;
   font-weight: 300;
   line-height: 1;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
 .order-modal__close:hover {
-  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.5);
+  background: rgba(200, 155, 60, 0.2);
+  transform: rotate(90deg);
 }
 
-/* Показываем кнопку закрытия только на мобильных устройствах */
-@media (max-width: 768px) {
-  .order-modal__close {
-    display: flex;
-  }
-}
-
-/* ==================================================
-   Form
-================================================== */
+/* ============= ФОРМА ============= */
 .order-form {
-  display: grid;
-  gap: 32px;
-}
-
-/* ==================================================
-   Field block
-================================================== */
-.order-form__field {
+  padding: 32px 24px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.order-form__fields {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ============= ПОЛЯ ФОРМЫ ============= */
+.order-form__field {
+  margin-bottom: 24px;
 }
 
 .order-form__label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #e8d8b5;
+  display: block;
+  color: #c89b3c;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-weight: 500;
 }
 
-/* ==================================================
-   Inputs & textarea
-================================================== */
 .order-form__input {
   width: 100%;
   padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid #3a3a3a;
-  background: #1a1a1a;
-  font-size: 16px;
-  color: #ffffff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.order-form__input::placeholder {
-  color: #666666;
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(200, 155, 60, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 .order-form__input:focus {
   outline: none;
   border-color: #c89b3c;
-  box-shadow: 0 0 0 3px rgba(200, 155, 60, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(200, 155, 60, 0.1);
 }
 
-/* ==================================================
-   Textarea specific
-================================================== */
-.order-form__input[as="textarea"],
-.order-form__input[as="textarea"]:focus {
-  min-height: 120px;
+.order-form__input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.order-form__input:focus::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Textarea стили */
+.order-form__input[rows] {
   resize: vertical;
-  line-height: 1.5;
+  min-height: 100px;
 }
 
-/* ==================================================
-   Error message
-================================================== */
+/* ============= ОШИБКИ ============= */
 .order-form__error {
-  font-size: 13px;
-  color: #ff5252;
-  min-height: 16px;
+  min-height: 22px;
+  margin-top: 6px;
 }
 
-/* ==================================================
-   Submit Button
-================================================== */
+.order-form__error-text {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* ============= КНОПКИ ============= */
+.order-form__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
 .order-form__submit {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 64px;
-  background: linear-gradient(135deg, #c89b3c, #9f7a28);
-  color: #ffffff;
+  background: linear-gradient(135deg, #c89b3c 0%, #d4a74c 100%);
+  color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 16px 24px;
+  font-size: 1.15rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.4);
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(200, 155, 60, 0.3);
+  font-family: inherit;
 }
 
 .order-form__submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.5);
-  background: linear-gradient(135deg, #d1a54a, #a88235);
+  box-shadow: 0 6px 20px rgba(200, 155, 60, 0.4);
 }
 
 .order-form__submit:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(200, 155, 60, 0.3);
-}
-
-.order-form__submit:focus-visible {
-  outline: 2px solid #c89b3c;
-  outline-offset: 4px;
 }
 
 .order-form__submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
 }
 
-/* ==================================================
-   Button: Open Modal (Primary Action)
-================================================== */
-.btn-modal-open {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #c89b3c, #9f7a28);
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  padding: 14px 28px;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: 0 4px 16px rgba(200, 155, 60, 0.4);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.btn-modal-open:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.5);
-  background: linear-gradient(135deg, #d1a54a, #a88235);
-}
-
-.btn-modal-open:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(200, 155, 60, 0.3);
-}
-
-.btn-modal-open:focus-visible {
-  outline: 2px solid #c89b3c;
-  outline-offset: 4px;
-}
-
-.btn-modal-open:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-/* ==================================================
-   Button: Close Modal (Alternative - Text Button)
-================================================== */
-.btn-modal-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: transparent;
-  color: #c89b3c;
-  border: 1px solid #3a3a3a;
-  border-radius: 10px;
-  padding: 12px 24px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-modal-close:hover {
-  background: #1a1a1a;
-  border-color: #c89b3c;
-  color: #e8d8b5;
-  transform: translateY(-1px);
-}
-
-.btn-modal-close:active {
-  transform: translateY(0);
-}
-
-.btn-modal-close:focus-visible {
-  outline: 2px solid #c89b3c;
-  outline-offset: 4px;
-}
-
-/* ==================================================
-   Button Group
-================================================== */
-.btn-group {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* ==================================================
-   Button Sizes
-================================================== */
-.btn-modal-open--sm {
-  padding: 10px 20px;
-  font-size: 13px;
-}
-
-.btn-modal-open--lg {
-  padding: 18px 36px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-/* ==================================================
-   Button with Icon
-================================================== */
-.btn-with-icon {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-icon {
-  width: 20px;
-  height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ==================================================
-   Loading State
-================================================== */
-.btn-modal-open.is-loading {
-  position: relative;
-  color: transparent;
-  pointer-events: none;
-}
-
-.btn-modal-open.is-loading::after {
-  content: "";
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-/* ==================================================
-   Accessibility
-================================================== */
-.order-form__submit:focus-visible,
-.order-form__input:focus-visible,
-.btn-modal-open:focus-visible,
-.btn-modal-close:focus-visible {
-  outline: 2px solid #c89b3c;
-  outline-offset: 4px;
-}
-
-/* ==================================================
-   Responsive
-================================================== */
-@media (max-width: 900px) {
+/* ============= АДАПТИВНОСТЬ ============= */
+@media (min-width: 1024px) {
   .order-modal__panel {
-    padding: 32px 20px;
+    max-width: 800px;
+    margin: 40px auto;
+    height: auto;
+    border-radius: 16px;
+    border: 2px solid #c89b3c;
   }
-  
+
+  .order-form {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .order-modal__panel {
+    max-width: 700px;
+    margin: 30px auto;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid #c89b3c;
+  }
+
+  .order-form {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .order-modal__header {
+    padding: 20px 16px 12px;
+  }
+
   .order-modal__title {
-    margin-bottom: 32px;
+    font-size: 1.75rem;
   }
-  
-  .order-form__submit {
-    height: 56px;
-    font-size: 14px;
-  }
-}
 
-@media (max-width: 768px) {
-  .btn-modal-open {
-    width: 100%;
-    padding: 16px;
-    font-size: 14px;
+  .order-modal__subtitle {
+    font-size: 0.95rem;
+    padding: 0 10px;
   }
-  
+
   .order-modal__close {
-    width: 42px;
-    height: 42px;
-    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    top: 16px;
+    right: 16px;
   }
-  
-  .btn-group {
-    flex-direction: column;
-  }
-  
-  .btn-modal-close {
-    width: 100%;
-  }
-}
 
-/* ==================================================
-   Reduced motion
-================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .order-modal,
-  .order-modal__panel {
-    transition: none;
+  .order-form {
+    padding: 24px 16px;
   }
-  
-  .btn-modal-open,
-  .order-modal__close,
-  .btn-modal-close,
+
+  .order-form__label {
+    font-size: 0.95rem;
+  }
+
+  .order-form__input {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+
+  .order-form__actions {
+    gap: 12px;
+  }
+
   .order-form__submit {
-    transition: none;
-  }
-  
-  .btn-modal-open:hover,
-  .order-modal__close:hover,
-  .order-form__submit:hover {
-    transform: none;
+    padding: 14px;
+    font-size: 1.05rem;
   }
 }
 
-/* ==================================================
-   Visually hidden (for accessibility)
-================================================== */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* ==================================================
-   Optimizations & Fixes
-================================================== */
-/* Унифицированы состояния фокуса для всех интерактивных элементов */
-.order-modal__close:focus,
-.btn-modal-close:focus,
-.order-form__input:focus {
-  outline: none;
-}
-
-/* Улучшена читаемость плейсхолдера */
-@media (prefers-contrast: high) {
-  .order-form__input::placeholder {
-    opacity: 0.85;
+@media (max-width: 479px) {
+  .order-modal__header {
+    padding: 16px 12px 10px;
   }
-}
 
-/* Гарантированное скрытие скроллбара панели в WebKit */
-.order-modal__panel::-webkit-scrollbar {
-  width: 8px;
-}
+  .order-modal__title {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
 
-.order-modal__panel::-webkit-scrollbar-track {
-  background: #0a0a0a;
-  border-radius: 4px;
-}
+  .order-modal__subtitle {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
 
-.order-modal__panel::-webkit-scrollbar-thumb {
-  background: #3a3a3a;
-  border-radius: 4px;
-  border: 2px solid #0a0a0a;
-}
+  .order-modal__close {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+    top: 12px;
+    right: 12px;
+  }
 
-.order-modal__panel::-webkit-scrollbar-thumb:hover {
-  background: #c89b3c;
+  .order-form {
+    padding: 20px 12px;
+  }
+
+  .order-form__field {
+    margin-bottom: 20px;
+  }
+
+  .order-form__label {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .order-form__input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .order-form__error {
+    min-height: 20px;
+    margin-top: 4px;
+  }
+
+  .order-form__error-text {
+    font-size: 0.8rem;
+  }
+
+  .order-form__actions {
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .order-form__submit {
+    padding: 12px;
+    font-size: 1rem;
+  }
 }

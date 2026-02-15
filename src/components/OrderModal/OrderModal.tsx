@@ -8,7 +8,6 @@ import "./OrderModal.css";
 export interface OrderFormValues {
   name: string;
   phone: string;
-  email: string;
   address: string;
   comment: string;
 }
@@ -30,7 +29,6 @@ interface FieldBlockProps {
 const initialValues: OrderFormValues = {
   name: "",
   phone: "",
-  email: "",
   address: "",
   comment: "",
 };
@@ -39,16 +37,13 @@ const schema = Yup.object({
   name: Yup.string()
     .min(2, "Мінімум 2 символи")
     .max(50, "Максимум 50 символів")
-    .required("Обовʼязково"),
+    .required("Обов'язково"),
   phone: Yup.string()
     .matches(/^\+380\d{9}$/, "Формат: +380XXXXXXXXX")
-    .required("Обовʼязково"),
-  email: Yup.string()
-    .email("Некоректний email")
-    .required("Обовʼязково"),
+    .required("Обов'язково"),
   address: Yup.string()
     .min(10, "Будь ласка, вкажіть повну адресу з містом")
-    .required("Обовʼязково"),
+    .required("Обов'язково"),
   comment: Yup.string().max(500, "Максимум 500 символів"),
 });
 
@@ -92,7 +87,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
           </h2>
 
           <div className="order-modal__subtitle">
-            Смачні хачапурі та традиційні страви прямо до вашого столу
+            Смачні традиційні страви прямо до вашого столу
           </div>
 
           <button
@@ -117,7 +112,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 
 Ім'я: ${values.name}
 Телефон: ${values.phone}
-Email: ${values.email}
 Адреса: ${values.address}
 
 Коментар:
@@ -142,14 +136,10 @@ ${values.comment || "немає"}
           {({ isValid, isSubmitting }) => (
             <Form className="order-form" noValidate>
               <fieldset className="order-form__fields">
-                <legend className="visually-hidden">
-                  Контактні дані для замовлення
-                </legend>
-
                 <FieldBlock
                   name="name"
                   label="Ваше ім'я"
-                  placeholder="Ніно, Гіоргі, Маріам або ваше ім'я"
+                  placeholder="Наприклад: Ніно, Гіоргі, Маріам"
                   autoComplete="name"
                 />
 
@@ -158,14 +148,6 @@ ${values.comment || "немає"}
                   label="Номер телефону"
                   placeholder="+380 XX XXX XX XX"
                   autoComplete="tel"
-                />
-
-                <FieldBlock
-                  name="email"
-                  label="Email"
-                  type="email"
-                  placeholder="example@email.com"
-                  autoComplete="email"
                 />
 
                 <FieldBlock
@@ -180,14 +162,9 @@ ${values.comment || "немає"}
                   label="Побажання до замовлення"
                   placeholder="Наприклад: гаряче хачапурі, додатково сир сулугуні..."
                   as="textarea"
+                  autoComplete="off"
                 />
               </fieldset>
-
-              <div className="order-form__info">
-                <p>
-                  Ваш смак Грузії — вже за <strong>40–60 хвилин</strong>!
-                </p>
-              </div>
 
               <footer className="order-form__actions">
                 <button
@@ -195,9 +172,7 @@ ${values.comment || "немає"}
                   className="order-form__submit"
                   disabled={!isValid || isSubmitting}
                 >
-                  {isSubmitting
-                    ? "Формуємо замовлення..."
-                    : "Замовити випічку"}
+                  {isSubmitting ? "Формуємо..." : "Замовити"}
                 </button>
               </footer>
             </Form>
@@ -230,6 +205,7 @@ function FieldBlock({
         placeholder={placeholder}
         autoComplete={autoComplete}
         className="order-form__input"
+        rows={as === "textarea" ? 4 : undefined}
       />
 
       <div className="order-form__error">
