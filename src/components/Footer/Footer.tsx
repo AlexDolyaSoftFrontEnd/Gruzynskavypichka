@@ -67,7 +67,7 @@ export default function Footer() {
           {/* Правая секция - адрес, телефон и часы работы */}
           <div className="footer__info">
             <p className="footer__address">
-              Вулиця Звенигородська, 201, Віта-Поштова
+              Київська область, вул. Звенигородська 201, с. Віта-Поштова
             </p>
 
             <p className="footer__phone">

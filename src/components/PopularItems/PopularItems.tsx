@@ -1,11 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import './PopularItems.css';
 
 interface PopularItem {
   id: number;
   name: string;
-  price: string;
   image: string;
 }
 
@@ -13,26 +13,22 @@ export default function PopularItems() {
   const items: PopularItem[] = [
     {
       id: 1,
-      name: 'Хінкалі баранина',
-      price: '230 грн / шт',
+      name: 'Хінкалі з бараниною',
       image: '/menu/khinkali.png',
     },
     {
       id: 2,
-      name: "Салат по-грузинськи",
-      price: '100 грн',
+      name: 'Салат по-грузинськи',
       image: '/menu/salat.png',
     },
     {
       id: 3,
       name: 'Лаваш-караваш',
-      price: '150 грн',
       image: '/menu/karavash.jpeg',
     },
     {
       id: 4,
-      name: 'Люля-кебаб баранина',
-      price: '320 грн',
+      name: 'Люля-кебаб з баранини',
       image: '/menu/kebab.png',
     },
   ];
@@ -41,21 +37,49 @@ export default function PopularItems() {
     <section className="popular-items">
       <h2 className="popular-items__title">Нове та популярне</h2>
       <div className="popular-items__list">
-        {items.map((item) => (
-          <article key={item.id} className="popular-items__item">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="popular-items__image"
-              loading="lazy"
-            />
-            <div className="popular-items__content">
-              <h3 className="popular-items__name">{item.name}</h3>
-              <p className="popular-items__price">{item.price}</p>
-            </div>
-          </article>
+        {items.map((item, index) => (
+          <PopularItemCard 
+            key={item.id} 
+            item={item} 
+            isFirst={index === 0}
+            isLast={index === items.length - 1}
+          />
         ))}
       </div>
     </section>
+  );
+}
+
+interface PopularItemCardProps {
+  item: PopularItem;
+  isFirst?: boolean;
+  isLast?: boolean;
+}
+
+function PopularItemCard({ item, isFirst, isLast }: PopularItemCardProps) {
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <article 
+      className={`popular-items__item ${
+        isFirst ? 'popular-items__item--first' : ''
+      } ${
+        isLast ? 'popular-items__item--last' : ''
+      }`}
+    >
+      {!imageError ? (
+        <img
+          src={item.image}
+          alt={item.name}
+          className="popular-items__image"
+          loading="lazy"
+          onError={() => setImageError(true)}
+        />
+      ) : (
+        <div className="popular-items__image-placeholder">
+          Зображення недоступне
+        </div>
+      )}
+    </article>
   );
 }
