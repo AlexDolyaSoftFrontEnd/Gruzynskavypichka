@@ -353,3 +353,23 @@
     font-size: 1rem;
   }
 }
+
+.order-form__info {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #495057;
+  margin-bottom: 16px;
+}
+
+.order-form__info-label {
+  font-weight: 600;
+  min-width: max-content;
+}
+
+.order-form__info-value {
+  color: #212529;
+}

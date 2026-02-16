@@ -38,18 +38,6 @@ export default function Footer() {
                 <FaWhatsapp />
               </a>
               
-              {/* Telegram */}
-              <a
-                href={`https://t.me/+${phoneWithoutCountryCode}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer__icon-link"
-                aria-label="Написати у Telegram"
-                data-tooltip="Telegram"
-              >
-                <FaTelegram />
-              </a>
-              
               {/* Карта */}
               <a
                 href={MAP_LINK}
@@ -67,7 +55,7 @@ export default function Footer() {
           {/* Правая секция - адрес, телефон и часы работы */}
           <div className="footer__info">
             <p className="footer__address">
-              Київська область, вул. Звенигородська 201, с. Віта-Поштова
+              Київська область, с. Віта Поштова, вул. Звенигородська 201
             </p>
 
             <p className="footer__phone">
@@ -76,7 +64,6 @@ export default function Footer() {
                 href={`tel:${CONTACT_PHONE}`}
                 aria-label="Позвонити"
                 className="footer__phone-link"
-                data-tooltip="Позвонити"
               >
                 {DISPLAY_PHONE}
               </a>

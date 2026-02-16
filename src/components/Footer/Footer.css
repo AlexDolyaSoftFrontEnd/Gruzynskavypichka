@@ -198,12 +198,7 @@
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.3s ease;
-  position: relative; /* Для позиционирования тултипа */
-}
-
-.footer__phone a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
+  position: relative;
 }
 
 /* Стили для кастомного тултипа телефона */

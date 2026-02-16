@@ -9,6 +9,7 @@ export interface OrderFormValues {
   name: string;
   phone: string;
   address: string;
+  deliveryTime: string; // Поле времени
   comment: string;
 }
 
@@ -30,6 +31,7 @@ const initialValues: OrderFormValues = {
   name: "",
   phone: "",
   address: "",
+  deliveryTime: "", // Поле времени
   comment: "",
 };
 
@@ -43,6 +45,12 @@ const schema = Yup.object({
     .required("Обов'язково"),
   address: Yup.string()
     .min(10, "Будь ласка, вкажіть повну адресу з містом")
+    .required("Обов'язково"),
+  deliveryTime: Yup.string() // Валидация времени
+    .matches(
+      /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,
+      "Формат: ГГ:ХХ (наприклад, 14:30)"
+    )
     .required("Обов'язково"),
   comment: Yup.string().max(500, "Максимум 500 символів"),
 });
@@ -114,6 +122,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 Ім'я: ${values.name}
 Телефон: ${values.phone}
 Адреса: ${values.address}
+Час доставки: ${values.deliveryTime}
 
 Коментар:
 ${values.comment || "немає"}
@@ -156,6 +165,15 @@ ${values.comment || "немає"}
                   label="Куди доставити"
                   placeholder="Зона доставки: до 50 км від Віти-Поштової"
                   autoComplete="shipping street-address"
+                />
+
+                {/* Поле времени доставки */}
+                <FieldBlock
+                  name="deliveryTime"
+                  label="Бажаний час доставки"
+                  placeholder="Наприклад: 18:30"
+                  type="text"
+                  autoComplete="off"
                 />
 
                 <FieldBlock

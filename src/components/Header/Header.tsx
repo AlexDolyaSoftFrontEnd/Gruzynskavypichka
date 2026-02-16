@@ -17,14 +17,9 @@ export default function Header() {
     <>
       <header className="header">
         <div className="header__container">
+          {/* Текстовый логотип */}
           <div className="header__logo">
-            <Image
-              src="/logo/logo.png"
-              alt="Грузинська пекарня"
-              height={100}
-              width={100}
-              style={{ width: 'auto', height: 'auto' }}
-            />
+            <span className="header__logo-text">Хінкальня</span>
           </div>
 
           <nav className="header__nav">
@@ -56,15 +51,15 @@ export default function Header() {
 
 function NavItem({ label, icon }: NavItemProps) {
   return (
-    <div className="header__link header__link--icon">
+    <a href="#" className="header__link">
       <Image 
         src={icon} 
-        alt={label} 
+        alt="icon" 
+        className="header__icon"
         width={20} 
         height={20} 
-        style={{ width: 'auto', height: 'auto' }}
       />
       <span>{label}</span>
-    </div>
+    </a>
   );
 }

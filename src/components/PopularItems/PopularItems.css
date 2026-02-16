@@ -1,19 +1,24 @@
-/* Загальний контейнер */
+/* ===============================
+   Общий контейнер
+================================ */
 .popular-items {
   padding: 60px 0;
   background: white;
   overflow: hidden;
 }
 
-/* Заголовок */
+/* ===============================
+   Заголовок
+================================ */
 .popular-items__title {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 700;
-  margin-bottom: 48px;
+  margin-bottom: clamp(24px, 4vw, 48px);
   color: #1a1a1a;
   text-align: center;
   position: relative;
   padding-bottom: 16px;
+  line-height: 1.2;
 }
 
 .popular-items__title::after {
@@ -22,40 +27,46 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
+  width: clamp(60px, 8vw, 80px);
+  height: clamp(3px, 0.4vw, 4px);
   background: linear-gradient(90deg, #c89b3c 0%, #a67c2e 100%);
   border-radius: 2px;
 }
 
-/* Список */
+/* ===============================
+   Список
+================================ */
 .popular-items__list {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 80px;
+  padding: 0 clamp(16px, 2vw, 40px);
   position: relative;
 }
 
-/* Елемент картки */
+/* ===============================
+   Элемент карточки
+================================ */
 .popular-items__item {
-  border-radius: 16px;
+  border-radius: clamp(12px, 1.5vw, 16px);
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  flex: 0 0 calc(25% - 20px);
-  max-width: calc(25% - 20px);
+  background: white;
+  cursor: pointer;
 }
 
 .popular-items__item:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* Градієнтний фон для першої картинки */
+/* ===============================
+   Градиентный фон для первой карточки
+================================ */
 .popular-items__item--first::before {
   content: '';
   position: absolute;
@@ -78,7 +89,9 @@
   pointer-events: none;
 }
 
-/* Градієнтний фон для останньої картинки */
+/* ===============================
+   Градиентный фон для последней карточки
+================================ */
 .popular-items__item--last::before {
   content: '';
   position: absolute;
@@ -101,21 +114,26 @@
   pointer-events: none;
 }
 
-/* Зображення */
+/* ===============================
+   Изображение
+================================ */
 .popular-items__image {
   width: 100%;
-  height: 400px;
+  height: auto;
   display: block;
   aspect-ratio: 3/4;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .popular-items__item:hover .popular-items__image {
   transform: scale(1.05);
 }
 
-/* Заглушка зображення */
+/* ===============================
+   Заглушка изображения
+================================ */
 .popular-items__image-placeholder {
   width: 100%;
   aspect-ratio: 3/4;
@@ -128,70 +146,80 @@
     #e9ecef 100%
   );
   color: #6c757d;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
   text-align: center;
-  padding: 20px;
+  padding: clamp(16px, 3vw, 20px);
   font-weight: 500;
 }
 
-/* Адаптивність */
-@media (max-width: 1400px) {
+/* ===============================
+   Адаптивность - Десктоп (1600px)
+================================ */
+@media (max-width: 1600px) {
   .popular-items__list {
-    padding: 0 60px;
-  }
-
-  .popular-items__item {
-    flex: 0 0 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(16px, 2vw, 20px);
   }
 }
 
-@media (max-width: 1024px) {
+/* ===============================
+   Адаптивность - Десктоп (1200px)
+================================ */
+@media (max-width: 1200px) {
   .popular-items__list {
-    padding: 0 40px;
-    gap: 16px;
-  }
-
-  .popular-items__item {
-    flex: 0 0 calc(50% - 16px);
-    max-width: calc(50% - 16px);
-  }
-
-  .popular-items__title {
-    font-size: 2rem;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(16px, 2vw, 20px);
   }
 }
 
-@media (max-width: 768px) {
+/* ===============================
+   СКРЫТИЕ БЛОКА НА ПЛАНШЕТАХ И МОБИЛЬНЫХ
+================================ */
+@media (max-width: 992px) {
   .popular-items {
-    padding: 40px 0;
-  }
-
-  .popular-items__list {
-    flex-direction: column;
-    padding: 0 16px;
-    gap: 16px;
-  }
-
-  .popular-items__item {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  .popular-items__item--first::before,
-  .popular-items__item--last::before {
     display: none;
   }
 }
 
-@media (max-width: 480px) {
-  .popular-items__title {
-    font-size: 1.75rem;
-    margin-bottom: 24px;
+/* ===============================
+   Поддержка тач-устройств
+================================ */
+@media (hover: none) and (pointer: coarse) {
+  .popular-items__item:hover {
+    transform: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 
+  .popular-items__item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* ===============================
+   Поддержка prefers-reduced-motion
+================================ */
+@media (prefers-reduced-motion: reduce) {
+  .popular-items__item,
   .popular-items__image {
-    aspect-ratio: 2/3;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ===============================
+   Дополнительные стили для читабельности
+================================ */
+.popular-items__item {
+  will-change: transform, box-shadow;
+}
+
+/* ===============================
+   Оптимизация для высокой плотности пикселей
+================================ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .popular-items__image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 }
