@@ -1,23 +1,23 @@
 import "./globals.css";
 import { Metadata, Viewport } from "next";
 
-// Базовый URL для изображений и канонических ссылок
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://georgianbakery.com.ua";
 
 export const metadata: Metadata = {
-  // Основные метаданные
-  title: {
-    default: "Хінкальня | Хачапурі, Хінкалі у Віта-Поштова",
-    template: "%s | Хінкальня",
-  },
-  description:
-    "Затишна Хінкальня у с. Віта-Поштова! Справжні хачапурі на дровах, сочні хінкалі. Доставка по Києву та області за 60 хвилин.",
-  
-  // Базовый URL для изображений Open Graph и канонических ссылок
+  title: "Кафе Хінкальня",
+  description: "Затишне кафе «Хінкальня» у с. Віта-Поштова!",
   metadataBase: new URL(BASE_URL),
-  
-  // Ключевые слова
+
+  icons: {
+    icon: [
+      { url: "/icon/favication.ico", sizes: "any" },
+    ],
+  },
+
+  manifest: "/site.webmanifest",
+
   keywords: [
+    "кафе хінкальня",
     "хінкальня",
     "хінкалі",
     "хачапурі",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "аутентична грузинська їжа",
     "пекарня на дровах",
     "грузинські страви",
-    "заказ їжі Віта Поштова",
+    "замовлення їжі Віта Поштова",
     "грузинська кухня доставка",
     "хачапурі на дровах",
     "грузинські хліби",
@@ -39,42 +39,36 @@ export const metadata: Metadata = {
     "грузинське вино",
   ],
 
-  // Open Graph (для соцсетей)
   openGraph: {
     type: "website",
     locale: "uk_UA",
     url: BASE_URL,
-    siteName: "Хінкальня Віта-Поштова",
-    title: "Хінкальня | Аутентичні Хачапурі та Хінкалі",
-    description:
-      "Затишна Хінкальня у с. Віта-Поштова. Хачапурі на дровах, хінкалі. Доставка по Києву та області.",
+    siteName: "Кафе Хінкальня",
+    title: "Кафе Хінкальня",
+    description: "Затишне кафе «Хінкальня» у с. Віта-Поштова. Хачапурі на дровах, хінкалі.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Хінкальня - хачапурі та хінкалі",
+        alt: "Кафе Хінкальня - хачапурі та хінкалі",
       },
     ],
   },
 
-  // Twitter Cards
   twitter: {
     card: "summary_large_image",
     site: "@khinkalnya",
     creator: "@khinkalnya",
-    title: "Хінкальня | Аутентичні Хачапурі та Хінкалі",
-    description:
-      "Затишна Хінкальня у с. Віта-Поштова. Хачапурі на дровах, хінкалі. Доставка по Києву та області.",
+    title: "Кафе Хінкальня",
+    description: "Затишне кафе «Хінкальня» у с. Віта-Поштова. Хачапурі на дровах, хінкалі.",
     images: ["/twitter-image.jpg"],
   },
 
-  // Каноническая ссылка
   alternates: {
     canonical: BASE_URL,
   },
 
-  // Robots.txt
   robots: {
     index: true,
     follow: true,
@@ -87,15 +81,11 @@ export const metadata: Metadata = {
     },
   },
 
-  // Контактная информация
-  authors: [{ name: "Хінкальня Віта-Поштова" }],
-  creator: "Хінкальня Віта-Поштова",
-
-  // Категория
+  authors: [{ name: "Кафе Хінкальня Віта-Поштова" }],
+  creator: "Кафе Хінкальня Віта-Поштова",
   category: "food",
 };
 
-// Отдельный экспорт для viewport и themeColor
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -111,15 +101,11 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <head>
-        {/* Дополнительные метатеги для SEO */}
-        <meta name="author" content="Alex Dolya" />
         <meta name="language" content="Ukrainian" />
         <meta name="geo.country" content="UA" />
         <meta name="geo.region" content="UA-32" />
         <meta name="geo.placename" content="Віта-Поштова, Київська область" />
         <meta name="rating" content="general" />
-        
-        {/* Метатеги для верификации */}
         <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE" />
       </head>
       <body>{children}</body>

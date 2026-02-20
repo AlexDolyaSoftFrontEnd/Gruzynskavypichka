@@ -52,12 +52,14 @@
 }
 
 .footer__chef-details dd {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 500;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: 540;
   color: #eee;
   line-height: 1.5;
   transition: opacity 0.2s;
+  max-width: 300px;
+  width: 300px;
 }
 
 .footer__chef-details dd:hover {

@@ -7,7 +7,8 @@ export default function Footer() {
   const CONTACT_PHONE = "+380935450594";
   const DISPLAY_PHONE = "+380 93 545 05 94";
   const CHEF_NAME = "Георгій";
-  const MAP_LINK = "https://maps.google.com/?q=Вулиця+Звенигородська,+201,+Віта-Поштова,+Київська+область";
+  // Обновленная ссылка на карту с новым адресом
+  const MAP_LINK = "https://maps.google.com/?q=Вито-Почтового+сельского+совета,+18+200+км+правее+автодороги+Киев-Одесса+в+админграницах,+Віта-Поштова,+Київська+область,+08170";
 
   // Форматирование номера для мессенджеров (только цифры)
   const cleanPhone = CONTACT_PHONE.replace(/\D/g, '');
@@ -22,6 +23,7 @@ export default function Footer() {
           <div className="footer__contact">
             <dl className="footer__chef-details">
               <dd>Повар: {CHEF_NAME}</dd>
+              <dd>Свіжі хачапурі за традиційними рецептами прямо до вашого столу.</dd>
             </dl>
 
             {/* Социальные сети и контакты */}
@@ -55,11 +57,11 @@ export default function Footer() {
           {/* Правая секция - адрес, телефон и часы работы */}
           <div className="footer__info">
             <p className="footer__address">
-              Київська область, с. Віта Поштова, вул. Звенигородська 201
+              Адреса: Віта-Поштова, 18 км. правее автодороги Київ-Одеса
             </p>
 
             <p className="footer__phone">
-              Мобильний номер:{" "}
+              Телефон:{" "}
               <a
                 href={`tel:${CONTACT_PHONE}`}
                 aria-label="Позвонити"
@@ -70,15 +72,14 @@ export default function Footer() {
             </p>
 
             <p className="footer__hours">
-              Робочі години: 9:00 – 21:00
+              Робочі години: 9:00 – 17:00
             </p>
           </div>
         </div>
 
-        {/* Нижняя секция - копирайт */}
         <div className="footer__bottom">
           <p className="footer__copyright">
-            &copy; {new Date().getFullYear()} Грузинська пекарня
+            Кафе Хінкальня
           </p>
         </div>
       </div>

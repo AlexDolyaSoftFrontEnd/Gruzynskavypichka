@@ -8,22 +8,22 @@
   margin: 30px auto 0;
   width: 90%;
   max-width: 1200px;
-  min-height: 700px;
-  color: #fff;
+  height: 700px;
   overflow: hidden;
   position: relative;
-  text-align: center;
-
-  /* Исправленный URL без пробелов */
-  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                    url("https://gruzynskavypichka.com/images/under-header-photo-logo.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
+  background-image: url("/logo/Image.png");
+  background-size: cover;       
+  background-position: center;  
+  background-repeat: no-repeat; 
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+}
+
+
+.product-hero h1, 
+.product-hero p {
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
 /* ===============================
@@ -86,33 +86,17 @@
 }
 
 /* ===============================
-   Products Menu Title
-================================ */
-.products-menu__title {
-  margin-top: 0;
-  margin-bottom: 24px;
-}
-
-/* ===============================
    СКРЫТИЕ НА МОБИЛЬНЫХ УСТРОЙСТВАХ
 ================================ */
 @media (max-width: 768px) {
-  .product-hero {
-    display: none;
-  }
 
-  /* Увеличенный отступ сверху для планшетов */
   .products-menu__title {
     margin-top: 50px;
   }
 }
 
 @media (max-width: 480px) {
-  .product-hero {
-    display: none;
-  }
 
-  /* Увеличенный отступ сверху для мобильных */
   .products-menu__title {
     margin-top: 50px;
   }
