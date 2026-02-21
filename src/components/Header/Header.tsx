@@ -12,7 +12,8 @@ export default function Header() {
       <header className="header">
         <div className="header__container">
           <div className="header__logo">
-            <p>Кафе Хінкальня</p>
+            <h1 className="header__title">Кафе Хінкальня</h1>
+            <span className="header__subtitle">Грузинські страви</span>
           </div>
 
           <button

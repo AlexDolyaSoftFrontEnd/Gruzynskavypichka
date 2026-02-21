@@ -95,7 +95,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
           </h2>
 
           <div className="order-modal__subtitle">
-            Грузинські страви прямо до вашого столу
+            Грузинські страви
           </div>
 
           <button

@@ -4,7 +4,7 @@ import { Metadata, Viewport } from "next";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://georgianbakery.com.ua";
 
 export const metadata: Metadata = {
-  title: "Кафе Хінкальня",
+  title: "Кафе Хінкальня | Грузинські страви",
   description: "Затишне кафе «Хінкальня» у с. Віта-Поштова!",
   metadataBase: new URL(BASE_URL),
   manifest: "/site.webmanifest",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: BASE_URL,
     siteName: "Кафе Хінкальня",
-    title: "Кафе Хінкальня",
+    title: "Кафе Хінкальня | Грузинські страви",
     description: "Затишне кафе «Хінкальня» у с. Віта-Поштова. Хачапурі на дровах, хінкалі.",
     images: [
       {
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@khinkalnya",
     creator: "@khinkalnya",
-    title: "Кафе Хінкальня",
+    title: "Кафе Хінкальня | Грузинські страви",
     description: "Затишне кафе «Хінкальня» у с. Віта-Поштова. Хачапурі на дровах, хінкалі.",
     images: ["/twitter-image.jpg"],
   },

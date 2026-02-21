@@ -4,7 +4,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: clamp(60px, 8vw, 80px);
+  height: clamp(70px, 9vw, 90px); /* Трохи збільшив висоту для двох рядків */
   background: linear-gradient(180deg, #140a06 0%, #080403 100%);
   color: #F2E5CB;
   border-bottom: clamp(1px, 0.25vw, 2px) solid #c89b3c;
@@ -32,16 +32,39 @@
 
 /* --- Logo Styles --- */
 .header__logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+
+.header__logo:hover {
+  transform: scale(1.02);
+}
+
+/* Головна назва */
+.header__title {
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   font-weight: 800;
   letter-spacing: 0.05em;
   color: #ffffff;
+  line-height: 1.1;
+  margin: 0;
   transition: color 0.3s ease;
-  white-space: nowrap;
 }
 
-.header__logo:hover {
+.header__logo:hover .header__title, .header__subtitle {
   color: #c89b3c;
+}
+
+/* Підзаголовок (новий стиль) */
+.header__subtitle {
+  font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-top: 2px;
+  opacity: 0.9;
 }
 
 /* --- CTA Button --- */
@@ -102,22 +125,26 @@
 ================================ */
 
 @media (max-width: 1024px) {
-  .header__logo {
+  .header__title {
     font-size: 1.4rem;
   }
 }
 
 @media (max-width: 768px) {
   .header {
-    height: 70px;
+    height: 80px; 
   }
 
   .header__container {
     padding: 0 16px;
   }
 
-  .header__logo {
+  .header__title {
     font-size: 1.1rem;
+  }
+
+  .header__subtitle {
+    font-size: 0.6rem;
   }
 
   .header__cta {
@@ -127,11 +154,14 @@
 }
 
 @media (max-width: 480px) {
-  .header__logo {
+  .header__title {
     font-size: 1rem;
     letter-spacing: 0.02em;
   }
   
+  .header__subtitle {
+    font-size: 0.55rem;
+  }
 }
 
 @media (hover: none) and (pointer: coarse) {
@@ -159,9 +189,13 @@
 .header--scrolled {
   background: linear-gradient(180deg, #0d0704 0%, #050302 100%);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  height: clamp(50px, 6vw, 60px);
+  height: clamp(60px, 7vw, 70px);
 }
 
-.header--scrolled .header__logo {
+.header--scrolled .header__title {
   font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.header--scrolled .header__subtitle {
+  display: none; /* Ховаємо підзаголовок при скролі на малих екранах, якщо треба */
 }
