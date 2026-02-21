@@ -6,7 +6,7 @@ import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 export default function Footer() {
   const CONTACT_PHONE = "+380935450594";
   const DISPLAY_PHONE = "+380 93 545 05 94";
-  const CHEF_NAME = "Георгій";
+  const CHEF_NAME = "Кафе Хінкальня";
   const MAP_LINK = "https://maps.google.com/?q=Вито-Почтового+сельского+совета,+18+200+км+правее+автодороги+Киев-Одесса+в+админграницах,+Віта-Поштова,+Київська+область,+08170";
 
   // Форматирование номера для мессенджеров (только цифры)
