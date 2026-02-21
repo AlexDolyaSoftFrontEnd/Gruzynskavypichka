@@ -7,14 +7,13 @@ export const metadata: Metadata = {
   title: "Кафе Хінкальня",
   description: "Затишне кафе «Хінкальня» у с. Віта-Поштова!",
   metadataBase: new URL(BASE_URL),
+  manifest: "/site.webmanifest",
 
   icons: {
-    icon: [
-      { url: "/icon/favication.ico", sizes: "any" },
-    ],
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico", 
   },
-
-  manifest: "/site.webmanifest",
 
   keywords: [
     "кафе хінкальня",
@@ -35,7 +34,6 @@ export const metadata: Metadata = {
     "аджика",
     "грузинські салати",
     "грузинські напої",
-    "чача",
     "грузинське вино",
   ],
 
@@ -81,8 +79,8 @@ export const metadata: Metadata = {
     },
   },
 
-  authors: [{ name: "Кафе Хінкальня Віта-Поштова" }],
-  creator: "Кафе Хінкальня Віта-Поштова",
+  authors: [{ name: "Alex Dolya" }],
+  creator: "Кафе Хінкальня",
   category: "food",
 };
 

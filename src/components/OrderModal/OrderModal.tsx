@@ -9,7 +9,7 @@ export interface OrderFormValues {
   name: string;
   phone: string;
   address: string;
-  deliveryTime: string; // Поле времени
+  deliveryTime: string; 
   comment: string;
 }
 
@@ -31,7 +31,7 @@ const initialValues: OrderFormValues = {
   name: "",
   phone: "",
   address: "",
-  deliveryTime: "", // Поле времени
+  deliveryTime: "", 
   comment: "",
 };
 
@@ -46,7 +46,7 @@ const schema = Yup.object({
   address: Yup.string()
     .min(10, "Будь ласка, вкажіть повну адресу з містом")
     .required("Обов'язково"),
-  deliveryTime: Yup.string() // Валидация времени
+  deliveryTime: Yup.string()
     .matches(
       /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/,
       "Формат: ГГ:ХХ (наприклад, 14:30)"
@@ -95,7 +95,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
           </h2>
 
           <div className="order-modal__subtitle">
-            Смачні традиційні страви прямо до вашого столу
+            Грузинські страви прямо до вашого столу
           </div>
 
           <button
@@ -163,7 +163,7 @@ ${values.comment || "немає"}
                 <FieldBlock
                   name="address"
                   label="Куди доставити"
-                  placeholder="Зона доставки: до 50 км від Віти-Поштової"
+                  placeholder="Зона доставки: до 20 км від Віти-Поштової"
                   autoComplete="shipping street-address"
                 />
 

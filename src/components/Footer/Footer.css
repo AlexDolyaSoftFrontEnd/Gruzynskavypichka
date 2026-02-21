@@ -5,7 +5,6 @@
   padding: 60px 0 40px;
   margin-top: auto;
   position: relative;
-  /* УБРАНО overflow: hidden для корректного отображения тултипов */
   width: 100%;
 }
 
@@ -33,7 +32,7 @@
 /* ============= ОСНОВНОЕ СОДЕРЖИМОЕ ============= */
 .footer__content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
   margin-bottom: 40px;
 }
@@ -43,7 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: 24px;
 }
 
 .footer__chef-details {
@@ -51,26 +50,35 @@
   padding: 0;
 }
 
-.footer__chef-details dd {
-  margin: 5px;
-  font-size: 14px;
-  font-weight: 540;
-  color: #eee;
-  line-height: 1.5;
-  transition: opacity 0.2s;
-  max-width: 300px;
-  width: 300px;
+.footer__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
 }
 
-.footer__chef-details dd:hover {
-  opacity: 0.9;
+.footer__description {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
 }
 
-/* ============= СОЦИАЛЬНЫЕ СЕТИ ============= */
-.footer__social-links {
+/* ============= СОЦИАЛЬНЫЕ СЕТИ (Списки) ============= */
+.footer__social-list {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  list-style: none; /* Убираем маркеры списка */
+  padding: 0;
+  margin: 0;
+}
+
+.footer__social-list li {
+  margin: 0; /* Сброс отступов li */
 }
 
 .footer__icon-link {
@@ -85,7 +93,7 @@
   text-decoration: none;
   transition: all 0.3s ease;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  position: relative; /* Для позиционирования тултипа */
+  position: relative;
 }
 
 .footer__icon-link:hover {
@@ -99,7 +107,7 @@
   height: 20px;
 }
 
-/* Стили для кастомных тултипов иконок */
+/* Тултипы для иконок */
 .footer__icon-link::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -122,7 +130,6 @@
   pointer-events: none;
 }
 
-/* Стрелка тултипа для иконок */
 .footer__icon-link::before {
   content: '';
   position: absolute;
@@ -141,7 +148,6 @@
   pointer-events: none;
 }
 
-/* Показ тултипа при наведении и фокусе для иконок */
 .footer__icon-link:hover::after,
 .footer__icon-link:focus::after,
 .footer__icon-link:hover::before,
@@ -151,19 +157,19 @@
   transform: translateX(-50%) translateY(-4px);
 }
 
-/* Улучшенный фокус для доступности */
 .footer__icon-link:focus {
   outline: 2px solid #c89b3c;
   outline-offset: 2px;
 }
 
-/* ============= СЕКЦИЯ ИНФОРМАЦИИ ============= */
+/* ============= СЕКЦИЯ ИНФОРМАЦИИ (Address) ============= */
 .footer__info {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding-left: 10px;
   border-left: 2px solid rgba(200, 155, 60, 0.2);
+  font-style: normal; /* Сброс курсива для тега address */
 }
 
 .footer__address,
@@ -175,6 +181,7 @@
   position: relative;
   padding-left: 20px;
   transition: color 0.3s ease;
+  margin: 0; /* Сброс стандартных отступов p */
 }
 
 .footer__address::before,
@@ -194,6 +201,13 @@
   color: #c89b3c;
 }
 
+/* Лейблы (Адреса:, Телефон: и т.д.) */
+.footer__label {
+  color: #fff;
+  font-weight: 500;
+  margin-right: 4px;
+}
+
 /* Стили для ссылки телефона */
 .footer__phone a {
   color: #c89b3c;
@@ -203,7 +217,12 @@
   position: relative;
 }
 
-/* Стили для кастомного тултипа телефона */
+.footer__phone a:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+/* Тултип для телефона */
 .footer__phone-link::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -226,7 +245,6 @@
   pointer-events: none;
 }
 
-/* Стрелка тултипа для телефона */
 .footer__phone-link::before {
   content: '';
   position: absolute;
@@ -245,7 +263,6 @@
   pointer-events: none;
 }
 
-/* Показ тултипа при наведении и фокусе для телефона */
 .footer__phone-link:hover::after,
 .footer__phone-link:focus::after,
 .footer__phone-link:hover::before,
@@ -255,10 +272,17 @@
   transform: translateX(-50%) translateY(-4px);
 }
 
-/* Фокус для доступности телефона */
 .footer__phone-link:focus {
   outline: 2px solid #c89b3c;
   outline-offset: 2px;
+}
+
+/* Время работы */
+.footer__time {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #cccccc;
 }
 
 /* ============= НИЖНЯЯ СЕКЦИЯ ============= */
@@ -286,8 +310,10 @@
   margin: 0;
   font-weight: 300;
   letter-spacing: 0.5px;
+  display: block;
 }
 
+/* Анимации */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -306,6 +332,7 @@
 .footer__content > *:nth-child(1) { animation-delay: 0.1s; }
 .footer__content > *:nth-child(2) { animation-delay: 0.2s; }
 
+/* ============= АДАПТИВ ============= */
 @media (max-width: 1024px) {
   .footer {
     padding: 50px 0 35px;
@@ -315,7 +342,7 @@
     gap: 30px;
   }
 
-  .footer__social-links {
+  .footer__social-list {
     gap: 10px;
   }
 
@@ -376,7 +403,7 @@
     gap: 25px;
   }
 
-  .footer__social-links {
+  .footer__social-list {
     gap: 8px;
   }
 
@@ -393,5 +420,9 @@
   .footer__copyright {
     font-size: 0.85rem;
     line-height: 1.6;
+  }
+  
+  .footer__title {
+    font-size: 1.3rem;
   }
 }
