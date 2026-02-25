@@ -23,7 +23,7 @@ export default function Footer() {
             <div className="footer__chef-details">
               <h2 id="footer-chef-title" className="footer__title">{CHEF_NAME}</h2>
               <p className="footer__description">
-                 Грузинські страви
+                 Грузинська кухня
               </p>
             </div>
     

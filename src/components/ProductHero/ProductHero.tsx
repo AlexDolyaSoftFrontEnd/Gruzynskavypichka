@@ -21,4 +21,3 @@ export default function ProductHero() {
     </section>
   );
 }
-

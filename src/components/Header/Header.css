@@ -1,80 +1,108 @@
+:root {
+  --header-bg-start: #140a06;
+  --header-bg-end: #080403;
+  --header-bg-scrolled-start: #0d0704;
+  --header-bg-scrolled-end: #050302;
+  --color-gold: #c89b3c;
+  --color-gold-dark: #a67c2e;
+  --color-text-main: #ffffff;
+  --color-text-sub: #f2e5cb;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --header-height-base: clamp(70px, 9vw, 90px);
+  --header-height-scrolled: clamp(60px, 7vw, 70px);
+  --container-width: clamp(1200px, 90vw, 1440px);
+  --transition-speed: 0.3s;
+}
+
 .header {
   position: fixed;
-  right: 0;
-  left: 0;
   top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  height: clamp(70px, 9vw, 90px); /* Трохи збільшив висоту для двох рядків */
-  background: linear-gradient(180deg, #140a06 0%, #080403 100%);
-  color: #F2E5CB;
-  border-bottom: clamp(1px, 0.25vw, 2px) solid #c89b3c;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  height: var(--header-height-base);
+  background: linear-gradient(180deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+  color: var(--color-text-sub);
+  border-bottom: clamp(1px, 0.25vw, 2px) solid var(--color-gold);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  transition: height 0.3s ease, background 0.3s ease;
   z-index: 100;
+  font-family: var(--font-family);
+  transition: height var(--transition-speed) ease, background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  animation: fadeInDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.header--scrolled {
+  height: var(--header-height-scrolled);
+  background: linear-gradient(180deg, var(--header-bg-scrolled-start) 0%, var(--header-bg-scrolled-end) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
 .header__container {
   width: 100%;
-  max-width: clamp(1200px, 90vw, 1440px);
+  max-width: var(--container-width);
   height: 100%;
   margin: 0 auto;
   padding: 0 clamp(16px, 2vw, 32px);
-
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
   box-sizing: border-box;
 }
 
-/* --- Logo Styles --- */
 .header__logo {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-decoration: none;
   white-space: nowrap;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-speed) ease;
+  cursor: pointer;
 }
 
 .header__logo:hover {
   transform: scale(1.02);
 }
 
-/* Головна назва */
 .header__title {
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   font-weight: 800;
   letter-spacing: 0.05em;
-  color: #ffffff;
+  color: var(--color-text-main);
   line-height: 1.1;
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color var(--transition-speed) ease, font-size var(--transition-speed) ease;
 }
 
-.header__logo:hover .header__title, .header__subtitle {
-  color: #c89b3c;
-}
-
-/* Підзаголовок (новий стиль) */
 .header__subtitle {
   font-size: clamp(0.6rem, 1.2vw, 0.75rem);
   font-weight: 400;
   letter-spacing: 0.03em;
   margin-top: 2px;
   opacity: 0.9;
+  color: var(--color-text-main);
+  transition: color var(--transition-speed) ease;
 }
 
-/* --- CTA Button --- */
+.header__logo:hover .header__title,
+.header__logo:hover .header__subtitle {
+  color: var(--color-gold);
+}
+
+.header--scrolled .header__title {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+}
+
+.header--scrolled .header__subtitle {
+  display: none;
+}
+
 .header__cta {
   font-size: clamp(0.75rem, 1.2vw, 0.9375rem);
   font-weight: 700;
-  color: #140a06;
+  color: var(--header-bg-start);
   text-transform: uppercase;
   white-space: nowrap;
-  background: linear-gradient(135deg, #c89b3c 0%, #a67c2e 100%);
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
   border: clamp(1px, 0.2vw, 2px) solid transparent;
   padding: clamp(8px, 1vw, 10px) clamp(16px, 2vw, 24px);
   cursor: pointer;
@@ -85,18 +113,18 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(200, 155, 60, 0.4);
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .header__cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(200, 155, 60, 0.5);
+  filter: brightness(1.1);
 }
 
 .header__cta:focus-visible {
   outline: 3px solid rgba(200, 155, 60, 0.6);
   outline-offset: 4px;
-  border-radius: 8px;
 }
 
 .header__cta:active {
@@ -104,7 +132,6 @@
   box-shadow: 0 2px 8px rgba(200, 155, 60, 0.3);
 }
 
-/* --- Animations --- */
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -116,23 +143,9 @@
   }
 }
 
-.header {
-  animation: fadeInDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-/* ===============================
-   Адаптивність
-================================ */
-
-@media (max-width: 1024px) {
-  .header__title {
-    font-size: 1.4rem;
-  }
-}
-
 @media (max-width: 768px) {
   .header {
-    height: 80px; 
+    height: 80px;
   }
 
   .header__container {
@@ -158,7 +171,7 @@
     font-size: 1rem;
     letter-spacing: 0.02em;
   }
-  
+
   .header__subtitle {
     font-size: 0.55rem;
   }
@@ -184,18 +197,4 @@
     transition: none !important;
     animation: none !important;
   }
-}
-
-.header--scrolled {
-  background: linear-gradient(180deg, #0d0704 0%, #050302 100%);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  height: clamp(60px, 7vw, 70px);
-}
-
-.header--scrolled .header__title {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-}
-
-.header--scrolled .header__subtitle {
-  display: none; /* Ховаємо підзаголовок при скролі на малих екранах, якщо треба */
 }

@@ -1,18 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-  faUtensils, 
-  faRotateRight, 
-  faFire, 
-  faTag, 
+import {
+  faUtensils,
+  faRotateRight,
+  faFire,
+  faTag,
   faWeightScale,
   faBowlFood,
   faCircleExclamation,
-  faClock
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import menuData from "./menu-data.json";
 import "./ProductsItems.css";
 
 interface ProductItem {
@@ -23,163 +24,214 @@ interface ProductItem {
   weight: number;
   imageUrl: string;
   isPopular?: boolean;
+  category?: string;
 }
 
 interface ProductsItemsProps {
   title?: string;
   items?: ProductItem[];
   isLoading?: boolean;
+  onLoadError?: (error: Error) => void;
 }
 
-const generateMockData = (): ProductItem[] => {
-  return [
-    {
-      id: 1,
-      name: "Хачапурі по-аджарські",
-      description: "Тісто на заквасці, сир сулугуні, яйце, вершкове масло.",
-      price: 260,
-      weight: 550,
-      imageUrl: "/menu/khachapuri.png",
-      isPopular: true,
-    },
-    {
-      id: 2,
-      name: "Хінкалі (1 шт.)",
-      description: "Традиційна грузинська пампушка з яловичо-свинячим фаршем, бульйоном всередині, часником та спеціями.",
-      price: 32,
-      weight: 100,
-      imageUrl: "/menu/khinkali.png",
-      isPopular: true,
-    },
-    {
-      id: 3,
-      name: "Картопля фрі",
-      description: "Золотиста картопля фрі зі спеціальними спеціями.",
-      price: 95,
-      weight: 250,
-      imageUrl: "/menu/fri.png",
-    },
-    {
-      id: 4,
-      name: "Грузинський лимонад",
-      description: "Освіжаючий напій з натуральними ароматами груші, тархуну та винограду.",
-      price: 85,
-      weight: 450,
-      imageUrl: "/menu/zadukeli.jpg",
-    },
-    {
-      id: 5,
-      name: "Стейк з лосося на грилі",
-      description: "Свіжий лосось у фірмовому маринаді, запечений на грилі.",
-      price: 320,
-      weight: 220,
-      imageUrl: "/menu/losos.png",
-    },
-    {
-      id: 6,
-      name: "Бадріджані з горіховим соусом",
-      description: "Запечені баклажани з соусом з грецьких горіхів, часнику та гранатового соусу.",
-      price: 165,
-      weight: 300,
-      imageUrl: "/menu/kurkoyu.png",
-    },
-    {
-      id: 7,
-      name: "Суп «Харчо»",
-      description: "Насичений суп на яловичому бульйоні з рисом, хмели-сунелі, волоськими горіхами та кінзою.",
-      price: 145,
-      weight: 350,
-      imageUrl: "/menu/kharcho.png",
-    },
-    {
-      id: 8,
-      name: "Картопля на мангалі",
-      description: "Картопля, запечена на вугіллі з грузинськими спеціями та розмарином.",
-      price: 110,
-      weight: 350,
-      imageUrl: "/menu/kartoplya.png",
-    },
-    {
-      id: 9,
-      name: "Сациві з куриці",
-      description: "Куряче філе в насиченому соусі з грецьких горіхів, часнику та спецій хмели-сунелі.",
-      price: 295,
-      weight: 400,
-      imageUrl: "/menu/rebra.png",
-    },
-    {
-      id: 10,
-      name: "Овочі гриль",
-      description: "Сезонні овочі (баклажан, кабачок, перець, цибуля, гриби) на грилі з оливковою олією та зеленню.",
-      price: 175,
-      weight: 380,
-      imageUrl: "/menu/ovochi.png",
-    },
-    {
-      id: 11,
-      name: "Курячий бульйон з зеленню",
-      description: "Легкий бульйон з курки, зелені, коренів та спецій. Подавати з грінками.",
-      price: 85,
-      weight: 300,
-      imageUrl: "/menu/bulyon.png",
-    },
-  ];
-};
+const LOAD_DELAY_MS = 600;
+const SKELETON_COUNT = 9;
 
-const ProductsItems = ({
+const VALID_CATEGORIES = [
+  "vegetable",
+  "meat",
+  "soup",
+  "side",
+  "cheese",
+  "drink",
+  "dessert",
+];
+
+function validateProductItem(item: unknown, index: number): ProductItem | null {
+  if (!item || typeof item !== "object") {
+    console.warn(`[Validation] Item at index ${index} is not an object`);
+    return null;
+  }
+
+  const product = item as Record<string, unknown>;
+  const requiredFields = ["id", "name", "description", "price", "weight", "imageUrl"];
+
+  for (const field of requiredFields) {
+    if (!(field in product)) {
+      console.warn(`[Validation] Item at index ${index} missing field: ${field}`);
+      return null;
+    }
+  }
+
+  if (typeof product.id !== "number" || product.id <= 0) {
+    console.warn(`[Validation] Item at index ${index} has invalid id`);
+    return null;
+  }
+
+  if (typeof product.name !== "string" || product.name.trim().length === 0) {
+    console.warn(`[Validation] Item at index ${index} has invalid name`);
+    return null;
+  }
+
+  if (typeof product.description !== "string") {
+    console.warn(`[Validation] Item at index ${index} has invalid description`);
+    return null;
+  }
+
+  if (typeof product.price !== "number" || product.price <= 0) {
+    console.warn(`[Validation] Item at index ${index} has invalid price`);
+    return null;
+  }
+
+  if (typeof product.weight !== "number" || product.weight <= 0) {
+    console.warn(`[Validation] Item at index ${index} has invalid weight`);
+    return null;
+  }
+
+  if (typeof product.imageUrl !== "string" || product.imageUrl.trim().length === 0) {
+    console.warn(`[Validation] Item at index ${index} has invalid imageUrl`);
+    return null;
+  }
+
+  if (product.category !== undefined) {
+    if (typeof product.category !== "string" || !VALID_CATEGORIES.includes(product.category)) {
+      console.warn(`[Validation] Item at index ${index} has invalid category`);
+      return null;
+    }
+  }
+
+  return {
+    id: product.id,
+    name: product.name.trim(),
+    description: product.description.trim(),
+    price: product.price,
+    weight: product.weight,
+    imageUrl: product.imageUrl.trim(),
+    isPopular: Boolean(product.isPopular),
+    category: product.category as string | undefined,
+  };
+}
+
+function validateMenuData(data: unknown): ProductItem[] | null {
+  if (!data || typeof data !== "object") {
+    console.error("[Validation] Invalid data structure");
+    return null;
+  }
+
+  const menu = data as Record<string, unknown>;
+
+  if (!Array.isArray(menu.items)) {
+    console.error("[Validation] Missing or invalid items array");
+    return null;
+  }
+
+  const validItems: ProductItem[] = [];
+
+  menu.items.forEach((item, index) => {
+    const validatedItem = validateProductItem(item, index);
+    if (validatedItem) {
+      validItems.push(validatedItem);
+    }
+  });
+
+  if (validItems.length === 0) {
+    console.error("[Validation] No valid items found");
+    return null;
+  }
+
+  const uniqueIds = new Set(validItems.map((item) => item.id));
+  if (uniqueIds.size !== validItems.length) {
+    console.warn("[Validation] Duplicate item IDs detected");
+  }
+
+  return validItems;
+}
+
+function loadMenuData(): Promise<ProductItem[]> {
+  return new Promise((resolve, reject) => {
+    try {
+      const validated = validateMenuData(menuData);
+
+      if (!validated) {
+        reject(new Error("Невірний формат даних меню"));
+        return;
+      }
+
+      resolve(validated);
+    } catch (error) {
+      reject(error instanceof Error ? error : new Error("Помилка завантаження меню"));
+    }
+  });
+}
+
+export default function ProductsItems({
   title = "Меню",
-  items: initialItems,
+  items: externalItems,
   isLoading: externalLoading,
-}: ProductsItemsProps) => {
+  onLoadError,
+}: ProductsItemsProps) {
   const [internalItems, setInternalItems] = useState<ProductItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  useEffect(() => {
+  const fetchMenu = useCallback(async () => {
     setIsLoading(true);
     setHasError(false);
+    setErrorMessage("");
 
     try {
-      if (initialItems && initialItems.length > 0) {
-        setInternalItems(initialItems);
+      if (externalItems && externalItems.length > 0) {
+        setInternalItems(externalItems);
         setIsLoading(false);
         return;
       }
 
-      const timer = setTimeout(() => {
-        setInternalItems(generateMockData());
-        setIsLoading(false);
-      }, 600);
+      await new Promise((resolve) => setTimeout(resolve, LOAD_DELAY_MS));
 
-      return () => clearTimeout(timer);
-    } catch {
-      setHasError(true);
+      const items = await loadMenuData();
+      setInternalItems(items);
       setIsLoading(false);
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error("Невідома помилка");
+      setHasError(true);
+      setErrorMessage(errorObj.message);
+      setIsLoading(false);
+      onLoadError?.(errorObj);
     }
-  }, [initialItems]);
+  }, [externalItems, onLoadError]);
+
+  useEffect(() => {
+    fetchMenu();
+  }, [fetchMenu]);
 
   const loading = externalLoading ?? isLoading;
 
   if (loading) {
     return (
-      <section 
-        className="products-menu products-menu--loading" 
+      <section
+        className="products-menu products-menu--loading"
         aria-busy="true"
         aria-label="Завантаження меню"
       >
-        <h2 className="products-menu__title">
-          {title}
-        </h2>
+        <header className="products-menu__header">
+          <h2 className="products-menu__title">{title}</h2>
+          <div className="products-menu__loading-indicator" aria-hidden="true">
+            <FontAwesomeIcon icon={faClock} spin />
+            <span>Завантаження...</span>
+          </div>
+        </header>
+
         <div className="products-menu__grid" role="status">
-          {[...Array(9)].map((_, i) => (
-            <div key={i} className="products-menu__item-skeleton">
-              <div className="products-menu__image-skeleton"></div>
+          {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
+            <article key={index} className="products-menu__item-skeleton">
+              <div className="products-menu__image-skeleton" />
               <div className="products-menu__content-skeleton">
-                <div className="products-menu__name-skeleton"></div>
-                <div className="products-menu__description-skeleton"></div>
-                <div className="products-menu__footer-skeleton"></div>
+                <div className="products-menu__name-skeleton" />
+                <div className="products-menu__description-skeleton" />
+                <div className="products-menu__footer-skeleton" />
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
@@ -188,21 +240,29 @@ const ProductsItems = ({
 
   if (hasError) {
     return (
-      <section className="products-menu" aria-live="polite">
-        <h2 className="products-menu__title">{title}</h2>
-        <div className="products-menu__error-container">
-          <p className="products-menu__error">
-            <FontAwesomeIcon icon={faCircleExclamation} className="products-menu__error-icon" />
-            Не вдалося завантажити меню. 
-            <button 
-              onClick={() => window.location.reload()} 
-              className="products-menu__retry-btn"
-              aria-label="Спробувати завантажити меню ще раз"
-            >
-              <FontAwesomeIcon icon={faRotateRight} className="products-menu__retry-icon" />
-              Спробувати знову
-            </button>
+      <section className="products-menu products-menu--error" aria-live="polite">
+        <header className="products-menu__header">
+          <h2 className="products-menu__title">{title}</h2>
+        </header>
+
+        <div className="products-menu__error-container" role="alert">
+          <FontAwesomeIcon
+            icon={faCircleExclamation}
+            className="products-menu__error-icon"
+            aria-hidden="true"
+          />
+          <p className="products-menu__error-message">
+            {errorMessage || "Не вдалося завантажити меню"}
           </p>
+          <button
+            type="button"
+            onClick={fetchMenu}
+            className="products-menu__retry-btn"
+            aria-label="Спробувати завантажити меню ще раз"
+          >
+            <FontAwesomeIcon icon={faRotateRight} aria-hidden="true" />
+            <span>Спробувати знову</span>
+          </button>
         </div>
       </section>
     );
@@ -210,100 +270,140 @@ const ProductsItems = ({
 
   if (internalItems.length === 0) {
     return (
-      <section className="products-menu" aria-live="polite">
-        <h2 className="products-menu__title">{title}</h2>
+      <section className="products-menu products-menu--empty" aria-live="polite">
+        <header className="products-menu__header">
+          <h2 className="products-menu__title">{title}</h2>
+        </header>
+
         <div className="products-menu__empty-container">
-          <FontAwesomeIcon icon={faBowlFood} className="products-menu__empty-icon" />
-          <p className="products-menu__empty">Наразі меню порожнє. Поверніться пізніше.</p>
+          <FontAwesomeIcon
+            icon={faBowlFood}
+            className="products-menu__empty-icon"
+            aria-hidden="true"
+          />
+          <p className="products-menu__empty-text">
+            Наразі меню порожнє. Поверніться пізніше.
+          </p>
         </div>
       </section>
     );
   }
 
-  const sortedItems = [...internalItems].sort((a, b) => 
-    Number(b.isPopular) - Number(a.isPopular)
+  const sortedItems = [...internalItems].sort(
+    (a, b) => Number(b.isPopular) - Number(a.isPopular)
   );
+
+  const popularCount = sortedItems.filter((item) => item.isPopular).length;
 
   return (
     <section className="products-menu" aria-label={title}>
-      <h2 className="products-menu__title">
-        {title}
-      </h2>
-      <div className="products-menu__grid">
-        {sortedItems.map((item) => (
-          <ProductCard key={item.id} item={item} />
+      <header className="products-menu__header">
+        <h2 className="products-menu__title" id="menu-heading">
+          {title}
+        </h2>
+      </header>
+
+      <ul className="products-menu__grid" role="list" aria-labelledby="menu-heading">
+        {sortedItems.map((item, index) => (
+          <li
+            key={item.id}
+            className="products-menu__list-item"
+            style={{ "--item-index": index } as React.CSSProperties}
+          >
+            <ProductCard item={item} />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
-};
+}
 
-const ProductCard = ({ item }: { item: ProductItem }) => {
+interface ProductCardProps {
+  item: ProductItem;
+}
+
+function ProductCard({ item }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const cardId = `product-${item.id}`;
+  const nameId = `product-name-${item.id}`;
+  const descId = `product-desc-${item.id}`;
 
   return (
     <article
-      className={`products-menu__item ${
-        item.isPopular ? "products-menu__item--popular" : ""
-      }`}
-      aria-labelledby={`product-name-${item.id}`}
+      id={cardId}
+      className={`products-menu__item ${item.isPopular ? "products-menu__item--popular" : ""}`}
+      aria-labelledby={nameId}
+      aria-describedby={descId}
     >
       <div className="products-menu__image-wrapper">
         {!imageError ? (
-          <Image
-            src={item.imageUrl}
-            alt={`Страва: ${item.name}. ${item.description}`}
-            fill
-            className="products-menu__image"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            priority={item.isPopular}
-            onError={() => setImageError(true)}
-            loading={item.isPopular ? "eager" : "lazy"}
-          />
+          <>
+            <Image
+              src={item.imageUrl}
+              alt={item.name}
+              fill
+              className={`products-menu__image ${imageLoaded ? "products-menu__image--loaded" : ""}`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              priority={item.isPopular}
+              onError={() => setImageError(true)}
+              onLoad={() => setImageLoaded(true)}
+              loading={item.isPopular ? "eager" : "lazy"}
+            />
+            {!imageLoaded && (
+              <div className="products-menu__image-loading" aria-hidden="true" />
+            )}
+          </>
         ) : (
-          <div 
-            className="products-menu__image-placeholder" 
-            aria-label="Зображення недоступне"
+          <div
+            className="products-menu__image-placeholder"
             role="img"
+            aria-label={`Зображення для страви ${item.name} недоступне`}
           >
-            <FontAwesomeIcon icon={faUtensils} className="products-menu__placeholder-icon" />
-            <span className="visually-hidden">Зображення страви тимчасово недоступне</span>
+            <FontAwesomeIcon icon={faUtensils} className="products-menu__placeholder-icon" aria-hidden="true" />
+            <span className="visually-hidden">Зображення недоступне</span>
           </div>
         )}
 
         {item.isPopular && (
-          <span 
-            className="products-menu__badge" 
-            aria-label="Популярна страва"
-          >
-            <FontAwesomeIcon icon={faFire} className="products-menu__badge-icon" />
-            Популярне
+          <span className="products-menu__badge" aria-label="Популярна страва">
+            <FontAwesomeIcon icon={faFire} className="products-menu__badge-icon" aria-hidden="true" />
+            <span>Популярне</span>
           </span>
         )}
       </div>
 
       <div className="products-menu__content">
-        <h3 id={`product-name-${item.id}`} className="products-menu__name">
+        <h3 id={nameId} className="products-menu__name">
           {item.name}
         </h3>
-        <p className="products-menu__description">{item.description}</p>
 
-        <div className="products-menu__footer">
-          <span className="products-menu__price" aria-label={`Ціна: ${item.price} гривень`}>
+        <p id={descId} className="products-menu__description">
+          {item.description}
+        </p>
+
+        <footer className="products-menu__footer">
+          <span
+            className="products-menu__price"
+            aria-label={`Ціна: ${item.price} гривень`}
+          >
             <FontAwesomeIcon icon={faTag} className="products-menu__price-icon" aria-hidden="true" />
-            {item.price.toLocaleString("uk-UA")}
+            <span className="products-menu__price-value">
+              {item.price.toLocaleString("uk-UA")}
+            </span>
           </span>
-          <span 
-            className="products-menu__weight" 
+
+          <span
+            className="products-menu__weight"
             aria-label={`Вага: ${item.weight} грамів`}
           >
             <FontAwesomeIcon icon={faWeightScale} className="products-menu__weight-icon" aria-hidden="true" />
-            {item.weight}
+            <span>{item.weight}</span>
+            <span className="visually-hidden">г</span>
           </span>
-        </div>
+        </footer>
       </div>
     </article>
   );
-};
-
-export default ProductsItems;
+}

@@ -10,7 +10,7 @@ interface PlayerProps {
   onClose?: () => void;
 }
 
-export default function Player({ src = '/audio.mp3', onClose }: PlayerProps) {
+export default function Player({ src = '/music.mp3', onClose }: PlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [info, setInfo] = useState('Натисніть для відтворення');

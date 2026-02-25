@@ -8,7 +8,7 @@ export default function Georgianbakery() {
   return (
     <>
       <Header />
-      <Player/>
+      {/* <Player/> */}
       <ProductHero />
       <ProductsItems/>
       <Footer />

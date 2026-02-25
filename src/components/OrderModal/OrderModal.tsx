@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { Formik, Form, Field } from "formik";
+import { useEffect, useRef, InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./OrderModal.css";
 
@@ -9,7 +9,7 @@ export interface OrderFormValues {
   name: string;
   phone: string;
   address: string;
-  deliveryTime: string; 
+  deliveryTime: string;
   comment: string;
 }
 
@@ -18,20 +18,27 @@ interface OrderModalProps {
   onClose: () => void;
 }
 
+type FieldAsType = "input" | "textarea";
+
 interface FieldBlockProps {
   name: keyof OrderFormValues;
   label: string;
   placeholder?: string;
-  type?: string;
-  autoComplete?: string;
-  as?: "input" | "textarea";
+  type?: InputHTMLAttributes<HTMLInputElement>["type"];
+  autoComplete?: InputHTMLAttributes<HTMLInputElement>["autoComplete"];
+  as?: FieldAsType;
+  rows?: TextareaHTMLAttributes<HTMLTextAreaElement>["rows"];
+  inputMode?: InputHTMLAttributes<HTMLElement>["inputMode"];
+  role?: InputHTMLAttributes<HTMLElement>["role"];
+  pattern?: InputHTMLAttributes<HTMLInputElement>["pattern"];
+  inputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
 }
 
 const initialValues: OrderFormValues = {
   name: "",
   phone: "",
   address: "",
-  deliveryTime: "", 
+  deliveryTime: "",
   comment: "",
 };
 
@@ -56,6 +63,9 @@ const schema = Yup.object({
 });
 
 export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -64,18 +74,30 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
     };
 
     document.addEventListener("keydown", onEsc);
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
+    const focusTimer = setTimeout(() => {
+      firstFieldRef.current?.focus();
+    }, 100);
 
     return () => {
       document.removeEventListener("keydown", onEsc);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      clearTimeout(focusTimer);
     };
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (isOpen && closeRef.current) {
+      closeRef.current.focus();
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="order-modal order-modal--open">
+    <div className="order-modal order-modal--open" role="presentation">
       <button
         type="button"
         className="order-modal__backdrop"
@@ -93,19 +115,16 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
           <h2 id="order-modal-title" className="order-modal__title">
             Замовлення
           </h2>
-
-          <div className="order-modal__subtitle">
-            Грузинські страви
-          </div>
+          <p className="order-modal__subtitle">Грузинська кухня</p>
 
           <button
             type="button"
+            ref={closeRef}
             className="order-modal__close"
             onClick={onClose}
-            aria-label="Закрити"
-            title="Закрити вікно"
+            aria-label="Закрити вікно"
           >
-            ×
+            <span aria-hidden="true">&times;</span>
           </button>
         </header>
 
@@ -128,13 +147,12 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
 ${values.comment || "немає"}
 
 Час замовлення: ${new Date().toLocaleString("uk-UA")}
-              `;
+              `.trim();
 
-              const encodedMessage = encodeURIComponent(message.trim());
+              const encodedMessage = encodeURIComponent(message);
               const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
               window.open(whatsappUrl, "_blank");
-
               helpers.resetForm();
               onClose();
             } catch (err) {
@@ -145,35 +163,41 @@ ${values.comment || "немає"}
         >
           {({ isValid, isSubmitting }) => (
             <Form className="order-form" noValidate>
-              <fieldset className="order-form__fields">
+              <fieldset className="order-form__fieldset">
+                <legend className="order-form__legend">Дані для доставки</legend>
+
                 <FieldBlock
                   name="name"
                   label="Ваше ім'я"
                   placeholder="Наприклад: Ніно, Гіоргі, Маріам"
                   autoComplete="name"
+                  inputRef={firstFieldRef}
                 />
 
                 <FieldBlock
                   name="phone"
                   label="Номер телефону"
                   placeholder="+380 XX XXX XX XX"
+                  type="tel"
                   autoComplete="tel"
+                  inputMode="tel"
                 />
 
                 <FieldBlock
                   name="address"
-                  label="Куди доставити"
+                  label="Адреса доставки"
                   placeholder="Зона доставки: до 20 км від Віти-Поштової"
                   autoComplete="shipping street-address"
                 />
 
-                {/* Поле времени доставки */}
                 <FieldBlock
                   name="deliveryTime"
                   label="Бажаний час доставки"
                   placeholder="Наприклад: 18:30"
                   type="text"
-                  autoComplete="off"
+                  inputMode="numeric"
+                  pattern="[0-9]{2}:[0-9]{2}"
+                  role="textbox"
                 />
 
                 <FieldBlock
@@ -181,7 +205,8 @@ ${values.comment || "немає"}
                   label="Побажання до замовлення"
                   placeholder="Наприклад: гаряче хачапурі, додатково сир сулугуні..."
                   as="textarea"
-                  autoComplete="off"
+                  rows={4}
+                  role="textbox"
                 />
               </fieldset>
 
@@ -191,7 +216,7 @@ ${values.comment || "немає"}
                   className="order-form__submit"
                   disabled={!isValid || isSubmitting}
                 >
-                  {isSubmitting ? "Формуємо..." : "Замовити"}
+                  {isSubmitting ? "Обробка..." : "Підтвердити замовлення"}
                 </button>
               </footer>
             </Form>
@@ -209,35 +234,76 @@ function FieldBlock({
   type = "text",
   autoComplete,
   as = "input",
-}: FieldBlockProps) {
+  rows,
+  inputMode,
+  role,
+  pattern,
+  inputRef,
+  ...props
+}: FieldBlockProps & {
+  inputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
+}) {
+  const fieldId = `field-${name}`;
+  const errorId = `error-${name}`;
+
+  const commonProps = {
+    id: fieldId,
+    name,
+    placeholder,
+    autoComplete,
+    className: "order-form__input",
+    "aria-describedby": errorId,
+    role,
+  };
+
+  if (as === "textarea") {
+    return (
+      <div className="order-form__field">
+        <label htmlFor={fieldId} className="order-form__label">
+          {label}
+        </label>
+
+        <Field
+          as="textarea"
+          {...commonProps}
+          rows={rows}
+          ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+          {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+        />
+
+        <ErrorMessage
+          name={name}
+          component="span"
+          id={errorId}
+          className="order-form__error"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="order-form__field">
-      <label htmlFor={name} className="order-form__label">
+      <label htmlFor={fieldId} className="order-form__label">
         {label}
       </label>
 
       <Field
-        id={name}
-        name={name}
-        as={as}
-        type={as === "input" ? type : undefined}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        className="order-form__input"
-        rows={as === "textarea" ? 4 : undefined}
+        as="input"
+        type={type}
+        {...commonProps}
+        inputMode={inputMode}
+        pattern={pattern}
+        ref={inputRef as React.RefObject<HTMLInputElement>}
+        {...(props as InputHTMLAttributes<HTMLInputElement>)}
       />
 
-      <div className="order-form__error">
-        <Field name={name}>
-          {({ form }: any) =>
-            form.touched[name] && form.errors[name] ? (
-              <div className="order-form__error-text">
-                {form.errors[name]}
-              </div>
-            ) : null
-          }
-        </Field>
-      </div>
+      <ErrorMessage
+        name={name}
+        component="span"
+        id={errorId}
+        className="order-form__error"
+
+      />
     </div>
   );
 }
