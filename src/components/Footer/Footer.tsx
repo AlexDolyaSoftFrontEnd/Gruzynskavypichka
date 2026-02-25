@@ -8,26 +8,19 @@ export default function Footer() {
   const DISPLAY_PHONE = "+380 93 545 05 94";
   const CHEF_NAME = "Кафе Хінкальня";
   const MAP_LINK = "https://maps.google.com/?q=Вито-Почтового+сельского+совета,+18+200+км+правее+автодороги+Киев-Одесса+в+админграницах,+Віта-Поштова,+Київська+область,+08170";
-
-  // Форматирование номера для мессенджеров (только цифры)
   const cleanPhone = CONTACT_PHONE.replace(/\D/g, '');
 
   return (
     <footer className="footer">
       <div className="footer__container">
-        {/* Основное содержимое футера */}
         <div className="footer__content">
-          
-          {/* Левая секция - информация о заведении и соцсети */}
           <section className="footer__contact" aria-labelledby="footer-chef-title">
             <div className="footer__chef-details">
               <h2 id="footer-chef-title" className="footer__title">{CHEF_NAME}</h2>
               <p className="footer__description">
-                 Грузинська кухня
+               Повар: Геогрій
               </p>
             </div>
-    
-            {/* Навигация по социальным сетям */}
             <nav className="footer__social-links" aria-label="Соціальні мережі та контакти">
               <ul className="footer__social-list">
                 <li>
@@ -58,7 +51,6 @@ export default function Footer() {
             </nav>
           </section>
     
-          {/* Правая секция - контактная информация */}
           <address className="footer__info">
             <p className="footer__address">
               <span className="footer__label">Адреса:</span>
@@ -83,8 +75,6 @@ export default function Footer() {
             </p>
           </address>
         </div>
-    
-        {/* Нижняя секция - копирайт */}
         <div className="footer__bottom">
           <small className="footer__copyright">
             &copy; {new Date().getFullYear()} Кафе Хінкальня

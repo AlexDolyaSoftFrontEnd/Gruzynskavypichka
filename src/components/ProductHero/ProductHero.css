@@ -18,14 +18,14 @@
   transition: all 0.3s ease;
 }
 
-/* .product-hero::before {
+.product-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
   z-index: 1;
   pointer-events: none;
-} */
+}
 
 .product-hero__container {
   position: relative;

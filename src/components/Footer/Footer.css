@@ -1,14 +1,41 @@
-/* ============= ОСНОВНЫЕ СТИЛИ ФУТЕРА ============= */
+:root {
+  --footer-bg-start: #140a06;
+  --footer-bg-end: #080403;
+  --footer-text-primary: #ffffff;
+  --footer-text-secondary: #cccccc;
+  --footer-text-muted: #999999;
+  --footer-accent: #c89b3c;
+  --footer-accent-light: #d4a74c;
+  --footer-bg-glass: rgba(255, 255, 255, 0.1);
+  --footer-bg-glass-hover: rgba(255, 255, 255, 0.2);
+  --footer-border-glass: rgba(255, 255, 255, 0.2);
+  --footer-accent-border: rgba(200, 155, 60, 0.2);
+  --footer-accent-border-light: rgba(200, 155, 60, 0.1);
+  --tooltip-bg: rgba(0, 0, 0, 0.92);
+  --footer-padding-top: 60px;
+  --footer-padding-bottom: 40px;
+  --footer-gap: 40px;
+  --container-max-width: 1200px;
+  --container-padding: 20px;
+  --font-size-title: 1.5rem;
+  --font-size-body: 0.95rem;
+  --font-size-copyright: 0.9rem;
+  --font-size-tooltip: 0.82rem;
+  --icon-size: 45px;
+  --icon-svg-size: 20px;
+  --border-width-accent: 2px;
+  --border-width-bottom: 1px;
+}
+
 .footer {
-  background: linear-gradient(180deg, #140a06 0%, #080403 100%);
-  color: #ffffff;
-  padding: 60px 0 40px;
+  background: linear-gradient(180deg, var(--footer-bg-start) 0%, var(--footer-bg-end) 100%);
+  color: var(--footer-text-primary);
+  padding: var(--footer-padding-top) 0 var(--footer-padding-bottom);
   margin-top: auto;
   position: relative;
   width: 100%;
 }
 
-/* Декоративная полоса сверху */
 .footer::before {
   content: '';
   position: absolute;
@@ -16,28 +43,25 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #c89b3c 0%, #d4a74c 50%, #c89b3c 100%);
+  background: linear-gradient(90deg, var(--footer-accent) 0%, var(--footer-accent-light) 50%, var(--footer-accent) 100%);
   box-shadow: 0 2px 10px rgba(200, 155, 60, 0.3);
 }
 
-/* ============= КОНТЕЙНЕР ============= */
 .footer__container {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  padding: 0 20px;
+  padding: 0 var(--container-padding);
 }
 
-/* ============= ОСНОВНОЕ СОДЕРЖИМОЕ ============= */
 .footer__content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
+  gap: var(--footer-gap);
+  margin-bottom: var(--footer-gap);
 }
 
-/* ============= СЕКЦИЯ КОНТАКТОВ ============= */
 .footer__contact {
   display: flex;
   flex-direction: column;
@@ -51,72 +75,70 @@
 }
 
 .footer__title {
-  font-size: 1.5rem;
+  font-size: var(--font-size-title);
   font-weight: 600;
-  color: #fff;
+  color: var(--footer-text-primary);
   margin: 0 0 8px 0;
   letter-spacing: 0.5px;
 }
 
 .footer__description {
-  font-size: 0.95rem;
+  font-size: var(--font-size-body);
   font-weight: 400;
-  color: #ccc;
+  color: var(--footer-text-secondary);
   line-height: 1.6;
   margin: 0;
   max-width: 320px;
 }
 
-/* ============= СОЦИАЛЬНЫЕ СЕТИ (Списки) ============= */
 .footer__social-list {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  list-style: none; /* Убираем маркеры списка */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .footer__social-list li {
-  margin: 0; /* Сброс отступов li */
+  margin: 0;
 }
 
 .footer__icon-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 45px;
-  height: 45px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--footer-bg-glass);
   color: white;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: var(--border-width-accent) solid var(--footer-border-glass);
   position: relative;
 }
 
 .footer__icon-link:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--footer-bg-glass-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .footer__icon-link svg {
-  width: 20px;
-  height: 20px;
+  width: var(--icon-svg-size);
+  height: var(--icon-svg-size);
 }
 
-/* Тултипы для иконок */
 .footer__icon-link::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(8px);
-  background: rgba(0, 0, 0, 0.92);
-  color: #ffffff;
-  font-size: 0.82rem;
+  background: var(--tooltip-bg);
+  color: var(--footer-text-primary);
+  font-size: var(--font-size-tooltip);
   font-weight: 500;
   padding: 4px 10px;
   border-radius: 6px;
@@ -140,7 +162,7 @@
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 6px solid rgba(0, 0, 0, 0.92);
+  border-top: 6px solid var(--tooltip-bg);
   opacity: 0;
   visibility: hidden;
   transition: all 0.25s ease;
@@ -158,30 +180,29 @@
 }
 
 .footer__icon-link:focus {
-  outline: 2px solid #c89b3c;
+  outline: var(--border-width-accent) solid var(--footer-accent);
   outline-offset: 2px;
 }
 
-/* ============= СЕКЦИЯ ИНФОРМАЦИИ (Address) ============= */
 .footer__info {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding-left: 10px;
-  border-left: 2px solid rgba(200, 155, 60, 0.2);
-  font-style: normal; /* Сброс курсива для тега address */
+  border-left: var(--border-width-accent) solid var(--footer-accent-border);
+  font-style: normal;
 }
 
 .footer__address,
 .footer__phone,
 .footer__hours {
-  font-size: 0.95rem;
+  font-size: var(--font-size-body);
   line-height: 1.8;
-  color: #cccccc;
+  color: var(--footer-text-secondary);
   position: relative;
   padding-left: 20px;
   transition: color 0.3s ease;
-  margin: 0; /* Сброс стандартных отступов p */
+  margin: 0;
 }
 
 .footer__address::before,
@@ -190,7 +211,7 @@
   content: '•';
   position: absolute;
   left: 0;
-  color: #c89b3c;
+  color: var(--footer-accent);
   font-size: 1.2rem;
   line-height: 1;
 }
@@ -198,19 +219,17 @@
 .footer__address:hover,
 .footer__phone:hover,
 .footer__hours:hover {
-  color: #c89b3c;
+  color: var(--footer-accent);
 }
 
-/* Лейблы (Адреса:, Телефон: и т.д.) */
 .footer__label {
-  color: #fff;
+  color: var(--footer-text-primary);
   font-weight: 500;
   margin-right: 4px;
 }
 
-/* Стили для ссылки телефона */
 .footer__phone a {
-  color: #c89b3c;
+  color: var(--footer-accent);
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.3s ease;
@@ -222,16 +241,15 @@
   text-decoration: underline;
 }
 
-/* Тултип для телефона */
 .footer__phone-link::after {
   content: attr(data-tooltip);
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(8px);
-  background: rgba(0, 0, 0, 0.92);
-  color: #ffffff;
-  font-size: 0.82rem;
+  background: var(--tooltip-bg);
+  color: var(--footer-text-primary);
+  font-size: var(--font-size-tooltip);
   font-weight: 500;
   padding: 4px 10px;
   border-radius: 6px;
@@ -255,7 +273,7 @@
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 6px solid rgba(0, 0, 0, 0.92);
+  border-bottom: 6px solid var(--tooltip-bg);
   opacity: 0;
   visibility: hidden;
   transition: all 0.25s ease;
@@ -273,21 +291,19 @@
 }
 
 .footer__phone-link:focus {
-  outline: 2px solid #c89b3c;
+  outline: var(--border-width-accent) solid var(--footer-accent);
   outline-offset: 2px;
 }
 
-/* Время работы */
 .footer__time {
-  font-size: 0.95rem;
+  font-size: var(--font-size-body);
   font-weight: 500;
   line-height: 1.8;
-  color: #cccccc;
+  color: var(--footer-text-secondary);
 }
 
-/* ============= НИЖНЯЯ СЕКЦИЯ ============= */
 .footer__bottom {
-  border-top: 1px solid rgba(200, 155, 60, 0.1);
+  border-top: var(--border-width-bottom) solid var(--footer-accent-border-light);
   padding-top: 25px;
   text-align: center;
   position: relative;
@@ -301,19 +317,18 @@
   transform: translateX(-50%);
   width: 100px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #c89b3c, transparent);
+  background: linear-gradient(90deg, transparent, var(--footer-accent), transparent);
 }
 
 .footer__copyright {
-  font-size: 0.9rem;
-  color: #999999;
+  font-size: var(--font-size-copyright);
+  color: var(--footer-text-muted);
   margin: 0;
   font-weight: 300;
   letter-spacing: 0.5px;
   display: block;
 }
 
-/* Анимации */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -332,7 +347,6 @@
 .footer__content > *:nth-child(1) { animation-delay: 0.1s; }
 .footer__content > *:nth-child(2) { animation-delay: 0.2s; }
 
-/* ============= АДАПТИВ ============= */
 @media (max-width: 1024px) {
   .footer {
     padding: 50px 0 35px;
@@ -377,7 +391,6 @@
     display: none;
   }
 
-  /* Скрываем кастомные тултипы на мобильных */
   .footer__icon-link::after,
   .footer__icon-link::before,
   .footer__phone-link::after,
