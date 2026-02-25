@@ -12,13 +12,12 @@ export const metadata: Metadata = {
   },
   description: "Грузинська кухня: хачапурі на дровах, хінкалі, сациві, харчо та інші традиційні страви. Доставка по Віті-Поштовій та околицях.",
   metadataBase: new URL(BASE_URL),
-  manifest: "/site.webmanifest",
 
   icons: {
     icon: { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
     shortcut: { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
     ],
     other: [
       { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#c89b3c" },
