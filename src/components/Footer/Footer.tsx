@@ -77,7 +77,7 @@ export default function Footer() {
         </div>
         <div className="footer__bottom">
           <small className="footer__copyright">
-            &copy; {new Date().getFullYear()} Кафе Хінкальня
+            &copy; {new Date().getFullYear()} Всі права захищені
           </small>
         </div>
       </div>
