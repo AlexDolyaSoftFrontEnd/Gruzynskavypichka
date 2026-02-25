@@ -18,7 +18,7 @@ export default function Footer() {
             <div className="footer__chef-details">
               <h2 id="footer-chef-title" className="footer__title">{CHEF_NAME}</h2>
               <p className="footer__description">
-              — Грузинська кухня
+              Грузинська кухня
               </p>
             </div>
             <nav className="footer__social-links" aria-label="Карта та контакти">

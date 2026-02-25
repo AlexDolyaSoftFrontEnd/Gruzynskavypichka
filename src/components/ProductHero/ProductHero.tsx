@@ -11,6 +11,8 @@ export default function ProductHero() {
   return (
     <section className="product-hero">
       <div className="product-hero__overlay" />
+      
+      <div className="product-hero__flag" />
 
       <div className="product-hero__container" />
 

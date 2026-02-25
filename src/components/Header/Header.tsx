@@ -13,7 +13,7 @@ export default function Header() {
         <div className="header__container">
           <div className="header__logo">
             <h1 className="header__title">Кафе Хінкальня</h1>
-            <span className="header__subtitle"> — Грузинська кухня</span>
+            <span className="header__subtitle">Грузинська кухня</span>
           </div>
 
           <button
