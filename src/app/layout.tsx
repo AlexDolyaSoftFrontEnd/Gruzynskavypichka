@@ -3,12 +3,11 @@ import { Metadata, Viewport } from "next";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://georgianbakery.com.ua";
 const SITE_NAME = "Кафе Хінкальня";
-const SITE_TAGLINE = "Грузинська кухня";
 
 export const metadata: Metadata = {
   title: {
     template: `%s | ${SITE_NAME}`,
-    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    default: SITE_NAME,
   },
   description: "Грузинська кухня: хачапурі на дровах, хінкалі, сациві, харчо та інші традиційні страви. Доставка по Віті-Поштовій та околицях.",
   metadataBase: new URL(BASE_URL),
@@ -57,11 +56,11 @@ export const metadata: Metadata = {
     locale: "uk_UA",
     url: BASE_URL,
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    description: "Автентична грузинська кухня: хачапурі на дровах, хінкалі, сациві, харчо. Доставка по Віті-Поштовій та околицях.",
+    title: SITE_NAME,
+    description: "Грузинська кухня: хачапурі на дровах, хінкалі, сациві, харчо. Доставка по Віті-Поштовій та околицях.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/logo/image.png",
         width: 1200,
         height: 630,
         alt: `${SITE_NAME} — хачапурі та хінкалі на дровах`,
@@ -74,11 +73,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@khinkalnya",
     creator: "@khinkalnya",
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    description: "Автентична грузинська кухня: хачапурі на дровах, хінкалі. Доставка по Віті-Поштовій.",
+    title: SITE_NAME,
+    description: "Грузинська кухня: хачапурі на дровах, хінкалі. Доставка по Віті-Поштовій.",
     images: [
       {
-        url: "/twitter-image.jpg",
+        url: "/logo/image.png",
         width: 1200,
         height: 600,
         alt: `${SITE_NAME} — грузинська кухня`,
@@ -144,7 +143,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Restaurant",
     name: SITE_NAME,
-    description: "Автентична грузинська кухня: хачапурі на дровах, хінкалі, сациві, харчо та інші традиційні страви.",
+    description: "Грузинська кухня: хачапурі на дровах, хінкалі, сациві, харчо та інші традиційні страви.",
     url: BASE_URL,
     telephone: "+380935450594",
     email: "info@georgianbakery.com.ua",

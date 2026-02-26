@@ -2,17 +2,20 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
-  display: none;
+  display: flex; 
   align-items: center;
   justify-content: center;
   z-index: 1000;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  pointer-events: none; 
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .order-modal--open {
-  display: flex;
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .order-modal__backdrop {
@@ -21,6 +24,12 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.order-modal--open .order-modal__backdrop {
+  opacity: 1;
 }
 
 .order-modal__panel {
@@ -34,6 +43,14 @@
   display: flex;
   flex-direction: column;
   scroll-behavior: smooth;
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.order-modal--open .order-modal__panel {
+  transform: translateY(0) scale(1);
+  opacity: 1;
 }
 
 .order-modal__header {
