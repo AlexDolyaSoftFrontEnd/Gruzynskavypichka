@@ -1,114 +1,114 @@
 {
-    "items": [
-      {
-        "id": 1,
-        "name": "Аджапсандалі",
-        "description": "Грузинське овочеве рагу з баклажанів, помідорів, перцю та зелені. Легка літня страва, багата на вітаміни",
-        "price": 165,
-        "weight": 550,
-        "imageUrl": "/menu/ajapsandali.webp",
-        "isPopular": true,
-        "category": "vegetable"
-      },
-      {
-        "id": 2,
-        "name": "Бадриджані",
-        "description": "Рулетики з баклажанів з горіховою пастою, часником та спеціями. Вишукана грузинська закуска.",
-        "price": 175,
-        "weight": 100,
-        "imageUrl": "/menu/vegetable-platter.webp",
-        "isPopular": false,
-        "category": "vegetable"
-      },
-      {
-        "id": 3,
-        "name": "Грузинське квасолеве рагу",
-        "description": "Ароматне рагу з червоної квасолі з овочами, грузинськими спеціями та горіхами. Корисна та ситна страва.",
-        "price": 225,
-        "weight": 250,
-        "imageUrl": "/menu/lobio.webp",
-        "isPopular": false,
-        "category": "vegetable"
-      },
-      {
-        "id": 4,
-        "name": "Гарячий Чахохбілі",
-        "description": "Традиційна грузинська страва з курятини в ароматному соусі з помідорами, кінзою та грузинськими спеціями.",
-        "price": 130,
-        "weight": 450,
-        "imageUrl": "/menu/chakhokhbili-hot.webp",
-        "isPopular": false,
-        "category": "meat"
-      },
-      {
-        "id": 5,
-        "name": "Гострі хінкалі з м'ясом",
-        "description": "Традиційні хінкалі з яловичиною та свининою з додаванням гострого перцю та спецій.",
-        "price": 320,
-        "weight": 220,
-        "imageUrl": "/menu/khinkali (1).png",
-        "isPopular": false,
-        "category": "meat"
-      },
-      {
-        "id": 6,
-        "name": "Бадріджані з горіховим соусом",
-        "description": "Запечені баклажани з соусом з грецьких горіхів, часнику та гранатового соусу.",
-        "price": 165,
-        "weight": 300,
-        "imageUrl": "/menu/kurkoyu.png",
-        "isPopular": false,
-        "category": "vegetable"
-      },
-      {
-        "id": 7,
-        "name": "Суп «Харчо»",
-        "description": "Насичений суп на яловичому бульйоні з рисом, хмели-сунелі, волоськими горіхами та кінзою.",
-        "price": 150,
-        "weight": 350,
-        "imageUrl": "/menu/kharcho.png",
-        "isPopular": true,
-        "category": "soup"
-      },
-      {
-        "id": 8,
-        "name": "Картопля на мангалі",
-        "description": "Картопля, запечена на вугіллі з грузинськими спеціями та розмарином.",
-        "price": 110,
-        "weight": 350,
-        "imageUrl": "/menu/kartoplya.png",
-        "isPopular": false,
-        "category": "side"
-      },
-      {
-        "id": 9,
-        "name": "Сациві з куриці",
-        "description": "Куряче філе в насиченому соусі з грецьких горіхів, часнику та спецій хмели-сунелі.",
-        "price": 295,
-        "weight": 400,
-        "imageUrl": "/menu/rebra.png",
-        "isPopular": false,
-        "category": "meat"
-      },
-      {
-        "id": 10,
-        "name": "Овочі гриль",
-        "description": "Сезонні овочі (баклажан, кабачок, перець, цибуля, гриби) на грилі з оливковою олією та зеленню.",
-        "price": 175,
-        "weight": 380,
-        "imageUrl": "/menu/ovochi.png",
-        "isPopular": false,
-        "category": "vegetable"
-      },
-      {
-        "id": 11,
-        "name": "Сир Сулугуні",
-        "description": "Автентичний грузинський розсільний сир з ніжною текстурою та вершковим смаком.",
-        "price": 165,
-        "weight": 300,
-        "imageUrl": "/menu/suluguni-cheese.jpg",
-        "isPopular": false,
-        "category": "cheese"
-      }
-    ]
-  }
+  "items": [
+    {
+      "id": 1,
+      "name": "Аджапсандалі",
+      "description": "Грузинське овочеве рагу з баклажанів, помідорів, перцю та зелені. Легка літня страва, багата на вітаміни.",
+      "price": 165,
+      "weight": 550,
+      "imageUrl": "/menu/ajapsandali.webp",
+      "isPopular": true,
+      "category": "vegetable"
+    },
+    {
+      "id": 2,
+      "name": "Бадриджані",
+      "description": "Рулетики з баклажанів з горіховою пастою, часником та спеціями. Вишукана грузинська закуска.",
+      "price": 175,
+      "weight": 100,
+      "imageUrl": "/menu/vegetable-platter.webp",
+      "isPopular": false,
+      "category": "vegetable"
+    },
+    {
+      "id": 3,
+      "name": "Грузинське квасолеве рагу",
+      "description": "Ароматне рагу з червоної квасолі з овочами, грузинськими спеціями та горіхами. Корисна та ситна страва.",
+      "price": 225,
+      "weight": 250,
+      "imageUrl": "/menu/lobio.webp",
+      "isPopular": false,
+      "category": "vegetable"
+    },
+    {
+      "id": 4,
+      "name": "Гарячий Чахохбілі",
+      "description": "Традиційна грузинська страва з курятини в ароматному соусі з помідорами, кінзою та грузинськими спеціями.",
+      "price": 130,
+      "weight": 450,
+      "imageUrl": "/menu/chakhokhbili-hot.webp",
+      "isPopular": false,
+      "category": "meat"
+    },
+    {
+      "id": 5,
+      "name": "Гострі хінкалі з м'ясом",
+      "description": "Традиційні хінкалі з яловичиною та свининою з додаванням гострого перцю та спецій.",
+      "price": 320,
+      "weight": 220,
+      "imageUrl": "/menu/khinkali (1).png",
+      "isPopular": false,
+      "category": "meat"
+    },
+    {
+      "id": 6,
+      "name": "Бадріджані з горіховим соусом",
+      "description": "Запечені баклажани з соусом з грецьких горіхів, часнику та гранатового соусу.",
+      "price": 165,
+      "weight": 300,
+      "imageUrl": "/menu/kurkoyu.png",
+      "isPopular": false,
+      "category": "vegetable"
+    },
+    {
+      "id": 7,
+      "name": "Суп «Харчо»",
+      "description": "Насичений суп на яловичому бульйоні з рисом, хмелі-сунелі, волоськими горіхами та кінзою.",
+      "price": 150,
+      "weight": 350,
+      "imageUrl": "/menu/kharcho.png",
+      "isPopular": true,
+      "category": "soup"
+    },
+    {
+      "id": 8,
+      "name": "Картопля на мангалі",
+      "description": "Картопля, запечена на вугіллі з грузинськими спеціями та розмарином.",
+      "price": 110,
+      "weight": 350,
+      "imageUrl": "/menu/kartoplya.png",
+      "isPopular": false,
+      "category": "side"
+    },
+    {
+      "id": 10,
+      "name": "Овочі гриль",
+      "description": "Сезонні овочі (баклажан, кабачок, перець, цибуля, гриби) на грилі з оливковою олією та зеленню.",
+      "price": 175,
+      "weight": 380,
+      "imageUrl": "/menu/ovochi.png",
+      "isPopular": false,
+      "category": "vegetable"
+    },
+    {
+      "id": 11,
+      "name": "Сир Сулугуні",
+      "description": "Автентичний грузинський розсільний сир з ніжною текстурою та вершковим смаком.",
+      "price": 165,
+      "weight": 300,
+      "imageUrl": "/menu/suluguni-cheese.jpg",
+      "isPopular": false,
+      "category": "cheese"
+    },
+    {
+      "id": 9,
+      "name": "Грузинський лимонад",
+      "description": "Освіжаючий напій на основі натуральної мінеральної води з додаванням екстрактів лимона, лайма або м'яти. Ідеально втамовує спрагу.",
+      "price": 60,
+      "weight": 100,
+      "imageUrl": "/menu/lum.jpg",
+      "isPopular": false,
+      "category": "drink"
+    }
+  ]
+}
